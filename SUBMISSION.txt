@@ -1,0 +1,16 @@
+Topcoder - Frontend E2E Testing Suite
+-------------------------------------
+
+Please, note that there are some test cases that can not be implemented.
+This is discussed here: https://apps.topcoder.com/forums/?module=Thread&threadID=912084&start=0
+See test suite spec: https://docs.google.com/spreadsheets/d/1nZRg2A2v9qc_HL6Oqci6HcwCHyAnn46VN1uGF4n_HaQ/edit?usp=sharing
+
+Bellow is a list of test cases that was not implemented:
+
+- TC_ConnApp_002 -> steps 11 - 13 - We can not check email inbox from test runner!
+- TC_ConnApp_003 -> steps 11 - 13 - We can not check email inbox from test runner!
+- TC_ConnApp_005 -> step 5, 11 - We can't check valid emails as we are not able to complete the registration process
+- TC_ConnApp_006 -> step 11 - We can't check valid emails as we are not able to complete the registration process
+- TC_ConnApp_009 -> all steps - Even with different password this case duplicates TC_ConnApp_008 from expectation gain
+
+Happy Testing!

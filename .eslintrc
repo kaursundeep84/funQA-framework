@@ -1,0 +1,20 @@
+{
+  "extends": "eslint:recommended",
+  "plugins": ["webdriverio"],
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "env": {
+    "webdriverio/wdio": true,
+    "mocha": true,
+    "node": true
+  },
+  "globals": {
+    "TEST_SUITE_CONFIG": true,
+    "chance": true
+  },
+  "rules": {
+    "no-console": 0
+  }
+}
