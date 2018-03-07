@@ -1,6 +1,6 @@
 const config = require('../config/config');
 const path = require('path');
-const EasyZip = require('easy-zip').EasyZip;
+const EasyZip = require('easy-zip2').EasyZip;
 const zip = new EasyZip();
 const now = new Date();
 const pathToZip = path.resolve(__dirname, '../../allure-report');
