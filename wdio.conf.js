@@ -14,7 +14,7 @@ exports.config = {
   ],
   // Patterns to exclude.
   exclude: [
-    // 'path/to/excluded/files'
+    './test/specs/**/helpers/*.js'
   ],
   //
   // ============
@@ -74,7 +74,7 @@ exports.config = {
   // baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 20000,
+  waitforTimeout: 60000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
@@ -129,8 +129,13 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     compilers: ['js:babel-register'],
-    require: ['./test/helpers/common.js', './test/config/config.js'],
-    timeout: 30000
+    require: [
+      './test/config/config.js',
+      './test/helpers/common.js',
+      './test/specs/TC-ConnApp/helpers/createProject.js',
+      './test/specs/TC-ConnApp/helpers/common.js'
+    ],
+    timeout: 60000
   },
   //
   // =====
