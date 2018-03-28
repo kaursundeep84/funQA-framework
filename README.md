@@ -1,4 +1,4 @@
-#Topcoder - Frontend E2E Testing Suite
+# Topcoder - Frontend E2E Testing Suite
 E2E testing suite using selenium that will test different applications in TopCoder platform.
 
 ## Prerequisites
