@@ -65,7 +65,7 @@ test
 following this pattern will ensure maintainability when test code-base grow.
 
 ## Lint
-Code lint via eslint and `npm lint`.
+Code lint via eslint and `npm run lint`.
 
 ## Adding new tests suites
 To add new test suite:
