@@ -74,7 +74,7 @@ exports.config = {
   // baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 60000,
+  waitforTimeout: 600000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
@@ -135,7 +135,7 @@ exports.config = {
       './test/specs/TC-ConnApp/helpers/createProject.js',
       './test/specs/TC-ConnApp/helpers/common.js'
     ],
-    timeout: 60000
+    timeout: 600000
   },
   //
   // =====
@@ -213,4 +213,6 @@ exports.config = {
   // possible to defer the end of the process using a promise.
   // onComplete: function(exitCode) {
   // }
+  seleniumInstallArgs: { version: '3.4.0' },
+  seleniumArgs: { version: '3.4.0' },
 }

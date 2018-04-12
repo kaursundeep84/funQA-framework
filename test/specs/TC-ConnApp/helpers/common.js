@@ -25,7 +25,14 @@ module.exports = {
   clickAddFile,
   selectAnyColor,
   selectiOSAndroidWebBuild,
-  selectScreenImportance
+  selectScreenImportance,
+
+  checkInputValue,
+  checkRibbon,
+  checkTextMatch,
+  waitRibbonDisappear,
+  checkLink,
+  getRecordWithManager
 };
 
 /**
@@ -277,4 +284,73 @@ function selectScreenImportance(selector, value) {
   browser.click(selector);
   browser.click(s2);
   browser.getText(s3).should.be.equal(`${value}`);
+}
+
+/**
+ * Check the input field has been set with value correctly.
+ * @param select the input selector
+ * @param txt  the value to be set
+ */
+function checkInputValue(select, txt) {
+  const s = select;
+  browser.setValue(s, txt);
+  browser.getValue(s).should.be.equal(txt);
+}
+
+
+/**
+ * Check the ribbon to see it contains the expected text;
+ * @param text the expected text
+ */
+function checkRibbon(text) {
+  const ribbon = '#root .s-alert-wrapper .s-alert-box-inner > span';
+  browser.isVisibleWithinViewport(ribbon);
+  browser.getText(ribbon).should.be.equal(text);
+}
+
+/**
+ * Wait the ribbon to disappear
+ */
+function waitRibbonDisappear() {
+  const ribbon = '#root .s-alert-wrapper .s-alert-box-inner > span';
+  var result = browser.isExisting(ribbon);
+  if (result) {
+    waitRibbonDisappear();
+  }
+}
+
+/**
+ * Check whether the seed partial matches with source
+ * @param source orignal string
+ * @param seed seed string
+ * @returns {boolean}
+ */
+function checkTextMatch(source, seed) {
+  return source.indexOf(seed) !== -1;
+}
+
+/**
+ * Check the given selector are having expected text and link
+ * @param selector the selector
+ * @param expectedText  the expected text of this selector
+ * @param expectedLink  the expected link of this selector
+ */
+function checkLink(selector, expectedText, expectedLink) {
+  browser.getText(selector).should.be.equal(expectedText);
+  browser.getAttribute(selector, 'href').should.contain(expectedLink);
+  browser.getAttribute(selector, 'target').should.be.equal('_blank');
+}
+
+/**
+ * Get the first project which has a manager with it.
+ * @returns {string} the selector of this project.
+ */
+function getRecordWithManager() {
+  var i = 2;
+  var q = '#wrapper-main .gridview-content .flex-data > div:nth-child(2) > div:nth-child(' + `${i}` + ') > div > div.item-manager .user-block txt-italic';
+  while (browser.isVisibleWithinViewport(q) == true) {
+    i += 1;
+    q = '#wrapper-main .gridview-content .flex-data > div:nth-child(2) > div:nth-child(' + `${i}` + ') > div > div.item-manager .user-block txt-italic';
+  }
+  return '#wrapper-main .gridview-content .flex-data > div:nth-child(2) > div:nth-child(' + `${i}` + ') > div > div.item-status .EditableProjectStatus';
 }
