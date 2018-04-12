@@ -29,8 +29,16 @@ const TEST_SUITE_CONFIG = {
         as customer
         pshah_copilot/topcoder123
       */
+      // Define as a manager
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_VALID_LOGIN_NAME || 'Parth Manager',
+      AVATAR: process.env.TC_CONN_APP_VALID_LOGIN_AVATAR || 'PM',
+      // Define as a customer
+      USER1: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
+      PASS1: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
+      NAME1: process.env.TC_CONN_APP_VALID_LOGIN_NAME || 'Parth Customer',
+      AVATAR1: process.env.TC_CONN_APP_VALID_LOGIN_AVATAR || 'PC',
     }
   }
 };

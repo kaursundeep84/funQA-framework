@@ -25,7 +25,11 @@ module.exports = {
   clickAddFile,
   selectAnyColor,
   selectiOSAndroidWebBuild,
-  selectScreenImportance
+  selectScreenImportance,
+  projectInfo,
+  projectTeam,
+  joinProject,
+  projectMessageBox
 };
 
 /**
@@ -100,7 +104,11 @@ function hooverSectionCheckBtnClick(section, buttonTxt) {
 function checkCurrentDate(selector) {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
   let nowInFormat = new Date();
-  nowInFormat = `${months[nowInFormat.getMonth()].toUpperCase()} ${nowInFormat.getDate()}, ${nowInFormat.getFullYear()}`;
+  let date = nowInFormat.getDate().toString();
+  if(date.length == 1) {
+    date = `0${date}`;
+  }
+  nowInFormat = `${months[nowInFormat.getMonth()].toUpperCase()} ${date}, ${nowInFormat.getFullYear()}`;
   browser.getText(selector).should.be.equal(nowInFormat);
 }
 
@@ -185,10 +193,13 @@ function setValueAndCheck(selector, value) {
 function clickContinueBtn(projectName) {
   const s = 'div.FillProjectDetails > section > div > div.left-area > div.left-area-content > div > form > div > div.section-footer.section-footer-spec > button';
   const s2 = '.s-alert-box-inner';
-  const s3 = '#root > div > div.TopBarContainer > div > div > div > div > div.bar-column.project-name > span';
+  const s3 = '#root > div > div.TopBarContainer > div > div > div > div > div:nth-child(2).project-name > span';
   browser.click(s);
   browser.waitForVisible(s2).should.be.true;
   browser.getText(`${s2} > span`).should.be.equal(`Project '${projectName}' created`);
+  browser.waitUntil(() => {
+    return $(s2).type === 'NoSuchElement';
+  });
   browser.waitForVisible(s3).should.be.true;
   browser.getText(s3).should.be.equal(projectName.replace('&', '&amp;'));
 }
@@ -199,7 +210,7 @@ function clickContinueBtn(projectName) {
  * @param {Array} checkValues Array of elements to check for values
  */
 function clickSpecLinkInText(projectName, checkValues) {
-  const s = 'div.right-area > div > div > div.feed-action-card > div > div.panel-body > div.object.topicBody > div.card-body.draftjs-post > p > a:nth-child(1)';
+  const s = '#root > div > div.TopBarContainer > div > div > div nav > ul > li:nth-child(2) > a'
   const s2 = '#appDefinition-projectName > div.content-boxs > div > div.editable-project-name > div > input';
   browser.waitForVisible(s).should.be.true;
   browser.click(s);
@@ -227,7 +238,7 @@ function clickAddEditFeatures() {
 function clickAddFile() {
   const s = '#appDefinition-files > div.content-boxs > div > div.add-file > div > div.filepicker-drag-drop-pane > button';
   const s2 = '#filepicker_dialog_container';
-  const s3 = '#filepicker_shade > div.fp__close > a';
+  const s3 = '#filepicker_shade > div.fp__close';
   browser.click(s);
   browser.waitForVisible(s2).should.be.true;
   browser.click(s3);
@@ -277,4 +288,68 @@ function selectScreenImportance(selector, value) {
   browser.click(selector);
   browser.click(s2);
   browser.getText(s3).should.be.equal(`${value}`);
+}
+
+/**
+ * projectInfo
+ * @param  {String} project Project
+ */
+function projectInfo(project) {
+  const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .project-info .project-info-header';
+  const s1 = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .project-info .project-card-body';
+  browser.waitForVisible(`${s} .project-type-icon svg > g:nth-child(1)`).should.be.true;
+  browser.getText(`${s} .project-header-details > div > div > div:nth-child(1)`).should.be.equal(project.projectName);
+  checkCurrentDate(`${s} .project-date`);
+  let desc = browser.getText(`${s1} .project-description`);
+  desc = desc.replace('...', '');
+  desc = desc.replace('read more', '');
+  project.desc.should.be.equal(desc);
+  browser.getText(`${s1} .project-status .EditableProjectStatus .project-status-dropdown .ProjectStatus > .status-label`).should.contain('DRAFT');
+}
+
+/**
+ * projectTeam
+ * @param  {String} owner Owner
+ * @param  {String} other Other user
+ */
+function projectTeam(owner, other) {
+ const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel';
+ let i = 2, j = 3;
+ if(browser.isVisible(`${s} > a`)) {
+   i = i + 1;
+   j = j + 1;
+ }
+
+ if(owner) {
+   browser.waitForVisible(`${s} > div:nth-child(${i}) .stack-avatar-1 .sb-avatar > div`).should.be.true;
+   browser.getText(`${s} > div:nth-child(${i}) .stack-avatar-1 .sb-avatar > div`).should.be.equal(owner.avatar);
+   browser.getText(`${s} > div:nth-child(${i}) .name`).should.be.equal(owner.name);
+   browser.getText(`${s} > div:nth-child(${i}) .handle`).should.be.equal(owner.handle);
+ }
+ if(other) {
+   browser.waitForVisible(`${s} > div:nth-child(${j}) .stack-avatar-1 .sb-avatar > div`).should.be.true;
+   browser.getText(`${s} > div:nth-child(${j}) .stack-avatar-1 .sb-avatar > div`).should.be.equal(other.avatar);
+   browser.getText(`${s} > div:nth-child(${j}) .name`).should.be.equal(other.name);
+   browser.getText(`${s} > div:nth-child(${j}) .handle`).should.be.equal(other.handle);
+ }
+}
+
+/**
+ * joinProject
+ */
+function joinProject() {
+  browser.isVisible('#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel .join-project button.tc-btn-primary').should.be.true;
+}
+
+/**
+ * projectMessageBox
+ */
+function projectMessageBox() {
+  const s = '#wrapper-main .dashboard-container .right-area .action-card.new-post-composer';
+  browser.waitForVisible(`${s} .object > input[type=text]`).should.be.true;
+  browser.getAttribute(`${s} .object > input[type=text]`, 'placeholder').should.equal('Share the latest project updates with the team');
+  browser.click(`${s} .object > input[type=text]`);
+  browser.waitForVisible(`${s}.expanded`).should.be.true;
+  browser.getText(`${s} .object .draftjs-editor .textarea-footer .tc-btns > button:nth-child(1)`).should.be.equal('Cancel');
+  browser.getText(`${s} .object .draftjs-editor .textarea-footer .tc-btns > button:nth-child(2)`).should.be.equal('Post');
 }
