@@ -10,7 +10,7 @@
  * @type {Object}
  */
 const TEST_SUITE_CONFIG = {
-  SEND_RESULTS_TO: ['gair_2015@hotmail.com'],
+  SEND_RESULTS_TO: ['kranitsasthomas@gmail.com'],
   EMAIL_SERVICE: {
     SENDER: process.env.EMAIL_SERVICE_SENDER || '',
     USER: process.env.EMAIL_SERVICE_USER || '',
