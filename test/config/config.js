@@ -29,6 +29,7 @@ const TEST_SUITE_CONFIG = {
         as customer
         pshah_copilot/topcoder123
       */
+      // Define as a manager
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
     },

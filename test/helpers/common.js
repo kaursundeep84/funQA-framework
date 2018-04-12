@@ -24,6 +24,7 @@ browser.addCommand("loginToConnApp", (role) => {
   const s2 = '#password-input';
   const s3 = '.connect-accounts-content > form > button:nth-child(5)';
   const s4 = '#root > div > div.TopBarContainer > div > div > div';
+  if(browser.isVisible('#root > div > div.TopBarContainer > div > div > div .links-section')) return;
   browser.goToConnAppLogin();
   if(role === 'user') {
     browser.setValue(s, TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.USER);
@@ -46,4 +47,17 @@ browser.addCommand("loginToConnApp", (role) => {
   browser.click(s3);
   browser.waitForVisible(s4);
   browser.getUrl().should.contain('/projects');
+});
+
+/**
+ * Logout from TC Connect App
+ */
+browser.addCommand("logoutConnApp", () => {
+  const s = '#root > div > div.TopBarContainer > div > div > div .links-section';
+  browser.waitForVisible(s).should.be.true;
+  browser.click(s);
+  browser.waitForVisible(`${s} .dropdown-menu-list`).should.be.true;
+  browser.click(`${s} .dropdown-menu-list > ul:nth-child(2) > li:nth-child(1) > a`);
+  browser.waitForVisible('.primary-toolbar .login-wrapper > a').should.be.true;
+  browser.getUrl().should.have.path('/');
 });
