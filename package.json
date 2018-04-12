@@ -41,7 +41,8 @@
     "html-report": "./node_modules/.bin/allure generate allure-data",
     "send-report": "node test/helpers/email.js",
     "lint": "./node_modules/.bin/eslint test",
-    "invidual": "npm run clean && ./node_modules/.bin/wdio wdio.conf.js --spec $INVIDUAL"
+    "invidual": "npm run clean && ./node_modules/.bin/wdio wdio.conf.js --spec $INVIDUAL",
+    "serve": "node server.js"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
