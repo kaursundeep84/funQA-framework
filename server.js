@@ -12,3 +12,4 @@ app.get('/*', (req, res) => res.sendFile(path.join(__dirname + '/allure-report/i
 
 // Start the app by listening on the default
 app.listen(process.env.PORT || 8080);
+console.log(`Server running at: http://localhost:${process.env.PORT || 8080}`)
