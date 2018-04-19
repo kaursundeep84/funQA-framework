@@ -12,7 +12,8 @@
   },
   "globals": {
     "TEST_SUITE_CONFIG": true,
-    "chance": true
+    "chance": true,
+    "assert": true
   },
   "rules": {
     "no-console": 0

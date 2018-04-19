@@ -1,4 +1,4 @@
-#Topcoder - Frontend E2E Testing Suite
+# Topcoder - Frontend E2E Testing Suite
 E2E testing suite using selenium that will test different applications in TopCoder platform.
 
 ## Prerequisites
@@ -54,6 +54,8 @@ This will run the all tests in the `TC-ConnApp` folder.
 ## Test results
 By default `spec` reporter is used. It log progress in console(std). ALso `allure` reporter is used to create HTML UI with results of the test run. It is placed in `allure-report` folder. It should  be hosted and opened in some browser. **Note** artifacts from previous test runs are deleted on the next run! Therefore if needed copy them before running new tests.
 
+To serve the test results locally, run `npm run serve` and navigate to [http://localhost:8080](http://localhost:8080)
+
 ## Naming conventions and folder structure
 The used folder structure is:
 ```
@@ -65,7 +67,7 @@ test
 following this pattern will ensure maintainability when test code-base grow.
 
 ## Lint
-Code lint via eslint and `npm lint`.
+Code lint via eslint and `npm run lint`.
 
 ## Adding new tests suites
 To add new test suite:

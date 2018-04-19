@@ -16,7 +16,7 @@ const TEST_SUITE_CONFIG = {
     USER: process.env.EMAIL_SERVICE_USER || '',
     PASS: process.env.EMAIL_SERVICE_PASS || ''
   },
-  DROPBOX_ACCESS_TOKEN: process.env.DROPBOX_ACCESS_TOKEN || 'cbB1DM6HnjYAAAAAAAAGTSm8aoHIfJkzQWzuwII56T2Cdq0FrhnhyIdNkhmVGMkb',
+  DROPBOX_ACCESS_TOKEN: process.env.DROPBOX_ACCESS_TOKEN || 'znOgOvfs3uAAAAAAAAAAF8FkI3t32hignCp1P9K3OXKRcFkmgJ2a-arVUwqPT-kv',
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
@@ -29,7 +29,12 @@ const TEST_SUITE_CONFIG = {
         as customer
         pshah_copilot/topcoder123
       */
+      // Define as a manager
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
+      PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
+    },
+    TC_CONN_APP_VALID_LOGIN_AS_USER: {
+      USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
     }
   }

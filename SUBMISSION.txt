@@ -1,3 +1,45 @@
+Topcoder QA Framework - Create Project Tests
+--------------------------------------------
+
+Please, note that there are some test cases that can not be implemented.
+This is discussed here:
+https://apps.topcoder.com/forums/?module=Thread&threadID=914272&start=0
+https://apps.topcoder.com/forums/?module=Thread&threadID=914268&start=0
+See test suite spec: https://docs.google.com/spreadsheets/d/1P8m84O_z5eDcPRNm1cl8q1A20fFaazXnzSnCVGBAdho/edit?usp=sharing
+
+Bellow is a list of test cases that could not be implemented:
+
+- TC_ConnApp_012 -> step 15 - Up/down arrows of input type number are not DOM elements but native thus can't be tested
+- TC_ConnApp_012 -> step 35 - 38 - File uploads can not be tested
+- TC_ConnApp_012 -> step 49 - Too ambitious. Also checkmarks are not shown for all elements. When show those are at back not front
+- TC_ConnApp_013 -> step 24 - 26 - File uploads can not be tested
+- TC_ConnApp_014 -> step 15 - 16 - File uploads can not be tested
+- TC_ConnApp_016 -> step 13 - File uploads can not be tested
+- TC_ConnApp_017 -> step 11 - File uploads can not be tested
+- TC_ConnApp_018 -> step 17 - File uploads can not be tested
+- TC_ConnApp_021 -> step 13 - File uploads can not be tested
+- TC_ConnApp_022 -> step 11 - File uploads can not be tested
+
+There are 3 test cases that currently(at time of this submission) fail but actually should not:
+
+- TC_ConnApp_015 -> step 25:
+Save button does not change to disabled after save.
+This is bug that need fix as it does disable for other type of projects.
+See: https://drive.google.com/file/d/1tC6eHPrhB54EhkA1h8-II27ar6GWVlC-/view?usp=sharing
+- TC_ConnApp_016 -> step 29:
+Save button does not change to disabled after save.
+This is bug that need fix as it does disable for other type of projects.
+See: https://drive.google.com/file/d/1xnaZpHEiACwschgOpseWv9bH4gzsThvn/view?usp=sharing
+- TC_ConnApp_020 -> step 9
+The message in the green ribbon gets excerpted.
+This is bug that need fix as it does not excerpt for other type of projects.
+See: https://drive.google.com/file/d/1JzxDM87VaIhrEtujwzSrhgW2GDaOxd89/view?usp=sharing
+
+Happy Testing!
+
+
+
+
 Topcoder - Frontend E2E Testing Suite
 -------------------------------------
 
