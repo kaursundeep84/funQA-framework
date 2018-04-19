@@ -34,13 +34,13 @@
   "scripts": {
     "postinstall": "npm install -g selenium-standalone",
     "kill-selenium": "kill -15 $( lsof -i:4444 -t )",
-    "test": "npm run clean && ./node_modules/.bin/wdio wdio.conf.js && npm run html-report || npm run html-report && npm run send-report",
-    "test:TC-ConnApp": "npm run clean && ./node_modules/.bin/wdio wdio.conf.js --spec TC_ConnApp && npm run html-report || npm run html-report && npm run send-report",
-    "help": "./node_modules/.bin/wdio --help",
-    "clean": "./node_modules/rimraf/bin.js allure-data allure-report errorShots",
-    "html-report": "./node_modules/.bin/allure generate allure-data",
+    "test": "npm run clean && node cmd.js node_modules/.bin/wdio wdio.conf.js && npm run html-report || npm run html-report && npm run send-report",
+    "test:TC-ConnApp": "npm run clean && node cmd.js node_modules/.bin/wdio wdio.conf.js --spec TC_ConnApp && npm run html-report || npm run html-report && npm run send-report",
+    "help": "node cmd.js node_modules/.bin/wdio --help",
+    "clean": "node node_modules/rimraf/bin.js allure-data allure-report errorShots",
+    "html-report": "node cmd.js node_modules/.bin/allure generate allure-data",
     "send-report": "node test/helpers/email.js",
-    "lint": "./node_modules/.bin/eslint test"
+    "lint": "node cmd.js node_modules/.bin/eslint test"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
