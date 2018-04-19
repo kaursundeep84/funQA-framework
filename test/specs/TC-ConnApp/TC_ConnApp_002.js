@@ -70,10 +70,10 @@ describe('#TC_ConnApp_002 - Connect Application : E2E registration', () => {
 
     it('Click on the "Register" button', () => {
       const s = '.connect-accounts-content > form > button.action.submit';
-      const s2 = '.connect-accounts-content > form > div.security-pin.ng-scope > input'
+      const s2 = '.connect-accounts-content > form > div.security-pin.ng-scope > input';
       browser.waitForVisible(s, 5000);
       browser.click(s);
-      browser.waitForVisible(s2, 7000);
+      browser.waitForVisible(s2, 12000);
       browser.getUrl().should.have.path('/connect/pin-verification');
     });
 

@@ -62,7 +62,7 @@ describe('#TC_ConnApp_007 - Connect Application : GUI Verification of the Login 
     });
 
     it('Check the topcoder credit text', () => {
-      browser.getText('body > ui-view > div > p').should.be.equal('© Topcoder 2017');
+      browser.getText('body > ui-view > div > p').should.be.equal('© Topcoder 2018');
     });
 
   });

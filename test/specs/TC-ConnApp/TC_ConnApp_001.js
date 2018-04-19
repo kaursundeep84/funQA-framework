@@ -106,7 +106,7 @@ describe('#TC_ConnApp_001 - Connect Application : GUI Verification of the regist
     });
 
     it('Check the topcoder credit text', () => {
-      browser.getText('body > ui-view > div > p').should.be.equal('© Topcoder 2017');
+      browser.getText('body > ui-view > div > p').should.be.equal('© Topcoder 2018');
     });
 
   });

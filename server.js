@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const opn = require('opn');
 
 // Run the app by serving the static files
 // in the dist directory
@@ -12,4 +13,5 @@ app.get('/*', (req, res) => res.sendFile(path.join(__dirname + '/allure-report/i
 
 // Start the app by listening on the default
 app.listen(process.env.PORT || 8080);
-console.log(`Server running at: http://localhost:${process.env.PORT || 8080}`)
+console.log(`Server started!\nVisit http://localhost:${process.env.PORT || 8080} in your browser to see the results.`)
+opn(`http://127.0.0.1:${process.env.PORT || 8080}`);
