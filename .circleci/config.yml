@@ -8,6 +8,9 @@ jobs:
     steps:
       # Initialization.
       - checkout
+      - run:
+          name: Installing Dependency module
+          command: chmod +w /usr/local/lib/node_modules
       - restore_cache:
           keys:
           - qa-dependencies-{{ checksum "package.json" }}
