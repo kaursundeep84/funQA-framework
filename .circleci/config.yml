@@ -1,0 +1,41 @@
+version: 2
+
+jobs:
+  # Build & Deploy against development backend
+  "build-dev":
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      # Initialization.
+      - checkout
+      - run:
+          name: Installing Dependency module
+          command: |
+            sudo chmod 777 /usr/local/lib/node_modules
+            sudo chmod 777 /usr/local/bin
+      - restore_cache:
+          keys:
+          - qa-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Installing Dependency module
+          command: npm i
+      - save_cache:
+          paths:
+            - node_modules
+          key: qa-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Running test
+          command: npm test
+      - store_test_results:
+          path: ~/project/allure-report
+      - store_artifacts:
+          path: ~/project/allure-report 
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-dev:
+          filters:
+            branches:
+              only: [develop, dev-circleci]
+
