@@ -10,7 +10,9 @@ jobs:
       - checkout
       - run:
           name: Installing Dependency module
-          command: chmod +w /usr/local/lib/node_modules
+          command: |
+            sudo chmod 777 /usr/local/lib/node_modules
+            sudo chmod 777 /usr/local/bin
       - restore_cache:
           keys:
           - qa-dependencies-{{ checksum "package.json" }}
