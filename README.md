@@ -51,6 +51,10 @@ npm run test:TC-ConnApp
 ```
 This will run the all tests in the `TC-ConnApp` folder.
 
+## Send report via email
+
+To send the test report to the configured list (`SEND_RESULTS_TO`) of email addresses run `npm run send-report`
+
 ## Test results
 By default `spec` reporter is used. It log progress in console(std). ALso `allure` reporter is used to create HTML UI with results of the test run. It is placed in `allure-report` folder. It should  be hosted and opened in some browser. **Note** artifacts from previous test runs are deleted on the next run! Therefore if needed copy them before running new tests.
 
