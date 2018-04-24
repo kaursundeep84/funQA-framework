@@ -25,10 +25,11 @@ jobs:
           key: qa-dependencies-{{ checksum "package.json" }}
       - run:
           name: Running test
-          command: |
-            javac -version
-            node --version
-            npm test
+          command: npm test
+      - store_test_results:
+          path: ~/project/allure-report
+      - store_artifacts:
+          path: ~/project/allure-report 
 workflows:
   version: 2
   build:
