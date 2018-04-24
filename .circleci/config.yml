@@ -1,0 +1,28 @@
+version: 2
+
+jobs:
+  # Build & Deploy against development backend
+  "build-dev":
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      # Initialization.
+      - checkout
+      - run:
+          name: Installing Dependency module
+          command: npm i
+      - run:
+          name: Running test
+          command: |
+            javac -version
+            node --version
+            npm test
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-dev:
+          filters:
+            branches:
+              only: [develop, dev-circleci]
+
