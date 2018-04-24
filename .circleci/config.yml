@@ -8,9 +8,16 @@ jobs:
     steps:
       # Initialization.
       - checkout
+      - restore_cache:
+          keys:
+          - qa-dependencies-{{ checksum "package.json" }}
       - run:
           name: Installing Dependency module
           command: npm i
+      - save_cache:
+          paths:
+            - node_modules
+          key: qa-dependencies-{{ checksum "package.json" }}
       - run:
           name: Running test
           command: |
