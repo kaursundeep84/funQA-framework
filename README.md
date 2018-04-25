@@ -84,3 +84,61 @@ To add new test suite:
 ## Troubleshooting
 - If you get `cant connect to selenium` error try running `npm run kill-selenium`
 - If some error is throw during the test automatic screenshots are created in `errorShots` those could be useful to get error details. Note this works only when using `phantomjs` browser.
+
+## Circle CI Integration
+
+#### Prerequisite
+
+1. Admin rights for the repository for which Circle CI Integration need to be set up
+
+#### Steps
+
+1. Login to [Circle CI](https://circleci.com/vcs-authorize/) using Github OAuth which prompt for few permissions necessary to set up building process
+
+2. After login, Navigate to [Add Projects](https://circleci.com/add-projects/gh/appirio-tech) for `appirio-tech` organization
+
+3. If you have Admin rights for qa-framework-js [repository](https://github.com/appirio-tech/qa-framework-js), You will be able to see a button `Setup Project` near the repository name. Click on `Setup Project` to proceed
+
+4. Choose the Operating System under which the CI should take place (`Linux`) and the Language of the project (`Node`)
+
+5. You will see the instructions that need to be followed under the section `Next Steps`
+
+6. Sample config.yml files are available [here](https://circleci.com/docs/2.0/sample-config/). Complete configuration reference for config.yml file is available [here](https://circleci.com/docs/2.0/configuration-reference/)
+
+7. Once you complete all steps under `Next Steps`, Click on `Start Building`
+
+8. That's all. You will be able to see the Build status [here](https://circleci.com/gh/appirio-tech/qa-framework-js)
+
+#### Adding Status Badge in Github Repository
+
+- In Circle CI, Navigate to the [project repository](https://circleci.com/gh/appirio-tech/qa-framework-js) and Click on `Settings` icon
+
+- Navigated URL will be https://circleci.com/gh/appirio-tech/qa-framework-js/edit
+
+- In the left hand side, Click on `NOTIFICATIONS -> Status Badge` to get Markdown code for publishing the status
+
+- Add the above Markdown in your Readme file below the Main title.
+
+- **Note: Status badge URL will be different for each branch**
+
+#### Testing Circle CI build locally
+
+- If the project is already building in Cirlce CI, It could be build and tested locally as well
+
+- Follow the instructions [here](https://circleci.com/docs/2.0/local-cli/#installing-the-circleci-local-cli-on-macos-and-linux-distros) to install Circle CI Commandline locally
+
+- Validation of config.yml file - [Reference](https://circleci.com/docs/2.0/local-cli/#validating-20-yaml-syntax)
+
+- Steps to build locally - [Reference](https://circleci.com/docs/2.0/local-cli/#running-a-build)
+
+## Testing Connect App with QA-FRAMEWORK-JS
+
+Currently tests in `qa-framework-js` runs against the hosted website `https://connect.topcoder-dev.com`.
+
+#### Possible solutions to run the tests
+
+1. `connect-app` has its own Circle CI setup. It's possible to checkout other repository in the current build and run the tests from that repository. But it requires changes in `qa-framework-js` code since the tests in the repo will run only against the hosted website `https://connect.topcoder-dev.com`
+
+2. Once the deployment is complete for `connect-app`, Trigger an API request to start building of repository `qa-framework-js` in Circle CI. Please refer https://circleci.com/docs/2.0/api-job-trigger/
+
+3. Trigger the Circle CI build manually in `qa-framework-js` repository once the build is complete in Topcoder Connect App. 
