@@ -130,3 +130,15 @@ To add new test suite:
 - Validation of config.yml file - [Reference](https://circleci.com/docs/2.0/local-cli/#validating-20-yaml-syntax)
 
 - Steps to build locally - [Reference](https://circleci.com/docs/2.0/local-cli/#running-a-build)
+
+## Testing Connect App with QA-FRAMEWORK-JS
+
+Currently tests in `qa-framework-js` runs against the hosted website `https://connect.topcoder-dev.com`.
+
+#### Possible solutions to run the tests
+
+1. `connect-app` has its own Circle CI setup. It's possible to checkout other repository in the current build and run the tests from that repository. But it requires changes in `qa-framework-js` code since the tests in the repo will run only against the hosted website `https://connect.topcoder-dev.com`
+
+2. Once the deployment is complete for `connect-app`, Trigger an API request to start building of repository `qa-framework-js` in Circle CI. Please refer https://circleci.com/docs/2.0/api-job-trigger/
+
+3. Trigger the Circle CI build manually in `qa-framework-js` repository once the build is complete in Topcoder Connect App. 
