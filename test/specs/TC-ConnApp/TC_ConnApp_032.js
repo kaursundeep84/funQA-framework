@@ -14,7 +14,7 @@ describe('#TC_ConnApp_032 - Connect Application : E2E Dashboard Functionalities'
     //the second tool bar
     const secondToolbar = '#root .TopBarContainer .secondary-toolbar';
     //the filter btn
-    const filterBtn = '#root .TopBarContainer .primary-toolbar .search-widget .search-filter > a.tc-btn';
+    const filterBtn = '#root .TopBarContainer .primary-toolbar .search-widget .search-filter > a:nth-child(2)';
     // the project type drop down wrapper
     const pjTypeDropdown = `${secondToolbar}` + ' .search-panel .search-select-field';
     // the clear filter btn
