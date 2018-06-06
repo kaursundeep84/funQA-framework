@@ -20,7 +20,7 @@ describe('#TC_ConnApp_024 - Connect Application : GUI Verification of the Dashbo
     });
 
     it('Filter button is visiable', () => {
-      browser.isVisible('#root .primary-toolbar .search-widget .search-filter a').should.be.true;
+      browser.isVisible('#root .primary-toolbar .search-widget .search-filter a:nth-child(2)').should.be.true;
     });
 
     it('Create Project Button is visiable', () => {
@@ -36,7 +36,7 @@ describe('#TC_ConnApp_024 - Connect Application : GUI Verification of the Dashbo
     });
 
     it('My Projects toggle Button is visiable', () => {
-      browser.isVisibleWithinViewport('#root #wrapper-main section .SwitchButton').should.be.true;
+      browser.isVisibleWithinViewport('#root #wrapper-main section .right-wrapper .SwitchButton').should.be.true;
     });
 
     it('List view button is visiable', () => {
@@ -56,10 +56,10 @@ describe('#TC_ConnApp_024 - Connect Application : GUI Verification of the Dashbo
     });
 
     it('Status Filter is visiable', () => {
-      const s = '#wrapper-main .list-nav-container .left-wrapper > li a';
+      const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li';
       const items = browser.getText(s);
       assert.equal(items.length, 8);
-      const filters = ['All projects', 'Active', 'Draft', 'In review', 'Reviewed', 'Completed', 'Cancelled', 'Paused'];
+      const filters = ['All Projects', 'Active', 'Draft', 'In review', 'Reviewed', 'Completed', 'Cancelled', 'Paused'];
       for (var i = 0; i < items.length; i++) {
         items[i].should.be.equal(filters[i]);
       }
