@@ -10,7 +10,7 @@
  * @type {Object}
  */
 const TEST_SUITE_CONFIG = {
-  SEND_RESULTS_TO: ['kranitsasthomas@gmail.com'],
+  SEND_RESULTS_TO: [''],
   EMAIL_SERVICE: {
     SENDER: process.env.EMAIL_SERVICE_SENDER || '',
     USER: process.env.EMAIL_SERVICE_USER || '',
@@ -32,6 +32,8 @@ const TEST_SUITE_CONFIG = {
       // Define as a manager
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_NAME || 'Parth Manager',
+      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PM',
     },
     TC_CONN_APP_VALID_LOGIN_AS_USER: {
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
