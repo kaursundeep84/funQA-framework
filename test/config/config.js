@@ -38,6 +38,8 @@ const TEST_SUITE_CONFIG = {
     TC_CONN_APP_VALID_LOGIN_AS_USER: {
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_NAME || 'Parth Customer',
+      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PC',
     }
   }
 };
