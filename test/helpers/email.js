@@ -114,9 +114,8 @@ const s3 = new aws.S3();
 createAndConfigureBucket(s3)
   .then((endpoint) => {
     const destinationKey = `${config.SUIT_NAME}/${now.getTime()}`;
-    const directory = '/Users/Vladimir/Documents/work/topcoder/qa-framework-js-fix-tests/qa-framework-js/fixed/allure-report_001_009';
     reportUrl = `http://${endpoint}/${destinationKey}/index.html`;
-    return uploadDirectory(s3, directory, destinationKey);
+    return uploadDirectory(s3, directoyToUpload, destinationKey);
   }).then(() => {
       console.log(`Link ${reportUrl} created. Sending to ${config.SEND_RESULTS_TO.length} emails`);
       const mailOptions = {
