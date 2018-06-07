@@ -5,7 +5,7 @@ E2E testing suite using selenium that will test different applications in TopCod
 - Nodejs >= 6
 - Java >= 1.8
 - Chrome browser installed
-- Dropbox account
+- AWS Account
 
 ## Installation
 To install dependencies just:
