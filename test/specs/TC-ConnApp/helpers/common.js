@@ -108,14 +108,8 @@ function hooverSectionCheckBtnClick(section, buttonTxt) {
  * @param  {String} selector The element selector to check
  */
 function checkCurrentDate(selector) {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-  let nowInFormat = new Date();
-  let date = nowInFormat.getDate().toString();
-  if(date.length == 1) {
-    date = `0${date}`;
-  }
-  nowInFormat = `${months[nowInFormat.getMonth()].toUpperCase()} ${date}, ${nowInFormat.getFullYear()}`;
-  browser.getText(selector).should.be.equal(nowInFormat);
+  const selectorDate = new Date(browser.getText(selector));
+  selectorDate.should.equalDate(new Date());
 }
 
 /**
@@ -202,7 +196,12 @@ function clickContinueBtn(projectName) {
   const s3 = '#root > div > div.TopBarContainer > div > div > div > div > div:nth-child(2).project-name > span';
   browser.click(s);
   browser.waitForVisible(s2).should.be.true;
-  browser.getText(`${s2} > span`).should.be.equal(`Project '${projectName}' created`);
+  // ending of long project name might be truncated and replaced by '...', therefore we can not just compare two strings
+  const expectedMessage = `Project '${projectName}' created`;
+  // replace '...' with '.*' therefore it will be possible to use 'match'
+  const actualMessageRegexp =  new RegExp(browser.getText(`${s2} > span`).replace('...', '.*'));
+  expectedMessage.should.match(actualMessageRegexp);
+
   browser.waitUntil(() => {
     return $(s2).type === 'NoSuchElement';
   });

@@ -22,7 +22,6 @@ const TEST_SUITE_CONFIG = {
     REGION: process.env.AWS_S3_REGION || 'us-west-1',
     BUCKET: process.env.AWS_S3_BUCKET || '',
   },
-  DROPBOX_ACCESS_TOKEN: process.env.DROPBOX_ACCESS_TOKEN || 'znOgOvfs3uAAAAAAAAAAF8FkI3t32hignCp1P9K3OXKRcFkmgJ2a-arVUwqPT-kv',
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
