@@ -6,6 +6,8 @@
 describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities', () => {
 
   describe('Filtering the projects by the Status', () => {
+    // style of active filter
+    const active = 'E7SY3s';
 
     before(function () {
       browser.loginToConnApp('admin');
@@ -13,6 +15,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
       browser.waitForVisible('#wrapper-main .content-pane section > div > div > section > div > div.container > div > div > div:nth-child(2) .row');
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(3)';
       browser.click(s);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);//** wait the data loaded.
     });
 
@@ -45,7 +48,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check Draft filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(3)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListInReview).value.should.be.empty;
       browser.elements(projectStatusListReviewed).value.should.be.empty;
@@ -58,7 +61,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check In review filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(4)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListDraft).value.should.be.empty;
       browser.elements(projectStatusListReviewed).value.should.be.empty;
@@ -71,7 +74,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check Reviewed filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(5)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListDraft).value.should.be.empty;
       browser.elements(projectStatusListInReview).value.should.be.empty;
@@ -85,7 +88,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check Completed filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(6)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListDraft).value.should.be.empty;
       browser.elements(projectStatusListInReview).value.should.be.empty;
@@ -98,7 +101,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check Cancelled filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(7)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListDraft).value.should.be.empty;
       browser.elements(projectStatusListInReview).value.should.be.empty;
@@ -111,7 +114,7 @@ describe('#TC_ConnApp_029 - Connect Application : E2E Dashboard Functionalities'
     it('Check Paused filter function', () => {
       const s = '#wrapper-main .list-nav-container .left-wrapper > div > :nth-child(2) > ul > li:nth-child(8)';
       browser.click(s);
-      browser.waitForVisible(`${s}.E7SY3s`);
+      browser.waitForVisible(`${s}.${active}`);
       browser.pause(10000);
       browser.elements(projectStatusListDraft).value.should.be.empty;
       browser.elements(projectStatusListInReview).value.should.be.empty;

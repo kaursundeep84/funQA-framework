@@ -22,7 +22,7 @@ describe('#TC_ConnApp_012 - Connect Application : E2E Create App Project', () =>
   describe('Create an App project with the specification', () => {
 
     before(function() {
-      browser.loginToConnApp();
+      browser.loginToConnApp('user');
     });
 
     browser.createProject('App', {
