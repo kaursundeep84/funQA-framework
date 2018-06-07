@@ -10,6 +10,7 @@
  * @type {Object}
  */
 const TEST_SUITE_CONFIG = {
+  SUIT_NAME: process.env.SUIT_NAME || 'TC-ConnApp',
   SEND_RESULTS_TO: ['kranitsasthomas@gmail.com'],
   EMAIL_SERVICE: {
     SENDER: process.env.EMAIL_SERVICE_SENDER || '',
