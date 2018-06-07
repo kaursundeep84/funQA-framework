@@ -18,10 +18,10 @@ const TEST_SUITE_CONFIG = {
     PASS: process.env.EMAIL_SERVICE_PASS || ''
   },
   AWS_S3_SERVICE: {
-    ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID || 'AKIAITJF4SNIIJ6QDIOA',
-    SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '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',
+    ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID || '',
+    SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '',
     REGION: process.env.AWS_S3_REGION || 'us-west-1',
-    BUCKET: process.env.AWS_S3_BUCKET || 'tc-qa-reporting-bucket',
+    BUCKET: process.env.AWS_S3_BUCKET || '',
   },
   DROPBOX_ACCESS_TOKEN: process.env.DROPBOX_ACCESS_TOKEN || 'znOgOvfs3uAAAAAAAAAAF8FkI3t32hignCp1P9K3OXKRcFkmgJ2a-arVUwqPT-kv',
   // Suite specific configuration
