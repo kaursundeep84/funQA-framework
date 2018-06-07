@@ -10,26 +10,24 @@
  * @type {Object}
  */
 const TEST_SUITE_CONFIG = {
-  SEND_RESULTS_TO: [''],
+  SUIT_NAME: process.env.SUIT_NAME || 'TC-ConnApp',
+  SEND_RESULTS_TO: ['kranitsasthomas@gmail.com'],
   EMAIL_SERVICE: {
     SENDER: process.env.EMAIL_SERVICE_SENDER || '',
     USER: process.env.EMAIL_SERVICE_USER || '',
     PASS: process.env.EMAIL_SERVICE_PASS || ''
+  },
+  AWS_S3_SERVICE: {
+    ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID || 'AKIAITJF4SNIIJ6QDIOA',
+    SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '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',
+    REGION: process.env.AWS_S3_REGION || 'us-west-1',
+    BUCKET: process.env.AWS_S3_BUCKET || 'tc-qa-reporting-bucket',
   },
   DROPBOX_ACCESS_TOKEN: process.env.DROPBOX_ACCESS_TOKEN || 'znOgOvfs3uAAAAAAAAAAF8FkI3t32hignCp1P9K3OXKRcFkmgJ2a-arVUwqPT-kv',
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
     TC_CONN_APP_VALID_LOGIN: {
-      /*
-        pshah_manager/topcoder123
-        as manager
-        pshah_customer/topcoder123
-
-        as customer
-        pshah_copilot/topcoder123
-      */
-      // Define as a manager
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
       NAME: process.env.TC_CONN_APP_NAME || 'Parth Manager',
@@ -39,6 +37,12 @@ const TEST_SUITE_CONFIG = {
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
       NAME: process.env.TC_CONN_APP_NAME || 'Parth Customer',
+      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PC',
+    },
+    TC_CONN_APP_VALID_LOGIN_AS_COPILOT: {
+      USER: process.env.TC_CONN_APP_VALID_COPLIOT_USER || 'pshah_copilot',
+      PASS: process.env.TC_CONN_APP_VALID_COPLIOT_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_NAME || 'Parth Copilot',
       AVATAR: process.env.TC_CONN_APP_AVATAR || 'PC',
     }
   }
