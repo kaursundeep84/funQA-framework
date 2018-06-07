@@ -21,8 +21,7 @@ npm i
 It is handled in two places.
 1. `wdio.config.json` - this is the base webdriver.io config file. [See](http://webdriver.io/guide/getstarted/configuration.html) for details what is inside and how to use it.
 2. `test/config/config.js` - this is the test suites main configuration file. It is used by all test suites and cases. It is suggested to split by test suite name when more tests are added. This will ensure clear configurations. It supports also environment variables as those will be available in the CD/CI environment. If not fails back to some defaults. Edit them as needed.
-
-To send test results to list of emails we need some email service. As this is left free to chose the easy way is to use nodemailer with Gmail. [See here](https://medium.com/@manojsinghnegi/sending-an-email-using-nodemailer-gmail-7cfa0712a799) for tutorial how it is done. Most important to send emails is to configure email credentials in `test/config/config.js`:
+To send test results to list of es we need some email service. As this is left free to chose the easy way is to use nodemailer with Gmail. [See here](https://medium.com/@manojsinghnegi/sending-an-email-using-nodemailer-gmail-7cfa0712a799) for tutorial how it is done. Most important to send emails is to configure email credentials in `test/config/config.js`:
 ```
 SEND_RESULTS_TO: [],
 EMAIL_SERVICE: {
@@ -33,10 +32,11 @@ EMAIL_SERVICE: {
 ```
 and `SEND_RESULTS_TO` list with recipients.
 
-Generated test reports are uploaded to Dropbox. Therefore account and properly configured application is needed.
-1. Create Dropbox application: https://www.dropbox.com/developers
-2. Get Access Token: https://blogs.dropbox.com/developers/2014/05/generate-an-access-token-for-your-own-account/
-3. Set it in as `DROPBOX_ACCESS_TOKEN` in `test/config/config.js`.
+Generated test reports are uploaded to S3 and served as static website. Therefore account and properly configured application is needed.
+1. Create AWS account: https://aws.amazon.com/
+2. Added IAM User with `Programmatic access`: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console
+3. Configure AWS_S3_SERVICE section in `test/config/config.js` providing aws crednetials and bucket name. If bucket does not exists, it will be created.
+
 
 Some test cases require valid login credentials. Those are set per suite level. For instance `TC_CONN_APP_VALID_LOGIN`.
 
