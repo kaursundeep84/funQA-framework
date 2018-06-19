@@ -25,11 +25,9 @@ jobs:
           key: qa-dependencies-{{ checksum "package.json" }}
       - run:
           name: Running test
-          command: npm test
-      - store_test_results:
-          path: ~/project/allure-report
-      - store_artifacts:
-          path: ~/project/allure-report 
+          command: |
+            ./envconfiguration.sh DEV
+            npm test
   "build-prod":
     docker:
       - image: circleci/node:8-browsers
