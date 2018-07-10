@@ -82,7 +82,7 @@ describe('#TC_ConnApp_014 - Connect Application : E2E Create Chatbot Project', (
     });
 
     it('Click on the "Read more" link in the specification section on left side of the page', () => {
-      const s = '#wrapper-main > div > div > div:nth-child(2) > div > div > div.left-area > div > div > div > div > div.sideAreaWrapper > div.project-info > div.project-card-body > div.project-description > div > a';
+      const s = '#wrapper-main > div > div > div:nth-child(2) > div > div > div.left-area > div > div > div > div > div.sideAreaWrapper > div.project-info > div div.project-card-body > div.project-description > div > a';
       browser.waitForVisible(s).should.be.true;
       browser.click(s);
       const s2 = '#appDefinition-projectName > div.content-boxs > div > div.editable-project-name > div > input';
@@ -105,11 +105,12 @@ describe('#TC_ConnApp_014 - Connect Application : E2E Create Chatbot Project', (
 
     it('Click "Save Changes" button', () => {
       const s = '#wrapper-main > div > div > div:nth-child(2) > section > div > div.right-area > div:nth-child(1) > form > div > div.section-footer.section-footer-spec > button';
+      browser.waitForVisible(s).should.be.true;
       if(browser.getAttribute(s, 'disabled')) {
         const s = '//*[@id="details.appDefinition.notes"]';
         browser.setValue(s, fillData.Chatbot.notes + Math.random());
       }
-      saveSpecChanges(s, `Project '${fillData.Chatbot.projectName}' created`);
+      saveSpecChanges(s, `Project updated.`);
       const dis = browser.getAttribute(s, 'disabled');
       assert.equal(dis, 'true');
     });

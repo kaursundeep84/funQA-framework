@@ -1,5 +1,4 @@
 exports.config = {
-
   //
   // ==================
   // Specify Test Files
@@ -157,6 +156,8 @@ exports.config = {
     // http://sinonjs.org/
     var chai = require('chai');
     chai.use(require('chai-url'));
+    chai.use(require('chai-datetime'));
+    chai.use(require('chai-match'));
     // http://chaijs.com/
     global.fetch = require('node-fetch');
     var Chance = require('chance');

@@ -20,9 +20,9 @@ describe('#TC_ConnApp_031 - Connect Application : E2E Dashboard Functionalities'
     //create project card
     const createProjInCardView = `${gridViewWrapper}` + ' .project-card .ProjectCard.NewProjectCard';
     //load more btn in gridview
-    const loadMoreBtnInGridView = `${gridViewWrapper}` + ' > button';
+    const loadMoreBtnInGridView = `${gridViewWrapper}` + ' > div > button';
     //load more lable in gridview
-    const loadMoreLabelInGridView = `${gridViewWrapper}` + ' .cardview-no-more';
+    const loadMoreLabelInGridView = `${gridViewWrapper}` + ' > div > .cardview-no-more';
     //list row view
     const listCardView = `${listViewWrapper}` + ' .container .flex-area .flex-data > div:nth-child(2)';
 
@@ -47,7 +47,8 @@ describe('#TC_ConnApp_031 - Connect Application : E2E Dashboard Functionalities'
       result.should.be.true;
       browser.elements(createProjInCardView).value.length.should.be.equal(1);
       browser.moveToObject(createProjInCardView);
-      var num = browser.elements(`${gridViewWrapper}` + ' .project-card').value.length;
+      // there is additional div added in between 'create new project' card and exiting projects
+      var num = browser.elements(`${gridViewWrapper}` + ' .project-card').value.length + 1;
       $(`${gridViewWrapper}` + ' > div > div:nth-child(' + `${num}` + ') > a').getAttribute('class').should.be.equal('ProjectCard NewProjectCard');
     });
 

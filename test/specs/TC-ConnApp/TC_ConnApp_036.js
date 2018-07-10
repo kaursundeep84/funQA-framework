@@ -13,7 +13,7 @@ const fillData = require('./helpers/fillData.json');
 describe('#TC_ConnApp_036 - Connect Application : E2E Project Details Page', () => {
 
   before(function() {
-    browser.loginToConnApp(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER1, TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.PASS1);
+    browser.loginToConnApp('user');
   });
 
   require('./TC_ConnApp_012.js');
@@ -28,9 +28,9 @@ describe('#TC_ConnApp_036 - Connect Application : E2E Project Details Page', () 
     it(`Open the project "${fillData.App.projectName}" from the Dashboard`, () => {
       projectInfo(fillData.App);
       projectTeam({
-        avatar: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.AVATAR1,
-        name: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME1,
-        handle: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER1,
+        avatar: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.AVATAR,
+        name: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.NAME,
+        handle: TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.USER,
       });
       projectMessageBox();
     });
@@ -64,9 +64,9 @@ describe('#TC_ConnApp_036 - Connect Application : E2E Project Details Page', () 
         return browser.elements(`${s1} .panel-row`).value.length === 2;
       });
       browser.waitForVisible(`${s1} > div:nth-child(4) .stack-avatar-1 .sb-avatar > div`).should.be.true;
-      browser.getText(`${s1} > div:nth-child(4) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.AVATAR);
-      browser.getText(`${s1} > div:nth-child(4) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME);
-      browser.getText(`${s1} > div:nth-child(4) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER);
+      browser.getText(`${s1} > div:nth-child(3) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.AVATAR);
+      browser.getText(`${s1} > div:nth-child(3) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.NAME);
+      browser.getText(`${s1} > div:nth-child(3) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.USER);
     });
 
   });

@@ -6,10 +6,6 @@ const fillData = require('./helpers/fillData.json');
 
 describe('#TC_ConnApp_034 - Connect Application : E2E Project Details Page', () => {
 
-  before(function() {
-    browser.loginToConnApp(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER1, TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.PASS1);
-  });
-
   require('./TC_ConnApp_012.js');
 
   describe('Joining to the Project as a Manager', () => {
@@ -17,7 +13,7 @@ describe('#TC_ConnApp_034 - Connect Application : E2E Project Details Page', () 
     before(function() {
       const path = browser.getUrl().replace('specification', '')
       browser.logoutConnApp();
-      browser.loginToConnApp(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER, TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.PASS);
+      browser.loginToConnApp('admin');
       browser.url(path);
       browser.waitUntil(() => {
         return browser.getUrl() == path;
@@ -35,7 +31,7 @@ describe('#TC_ConnApp_034 - Connect Application : E2E Project Details Page', () 
       const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel';
       browser.click(`${s}  .join-project button.tc-btn-primary`);
       browser.getText(`${s}.modal-active .modal .modal-title`).should.be.equal('You\'re about to join the project');
-      browser.getText(`${s}.modal-active .modal .modal-body .message`).should.be.equal(`Once you join the project you’ll be responsible for carrying over all orders from ${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME1}. Are you sure you want to join?`);
+      browser.getText(`${s}.modal-active .modal .modal-body .message`).should.be.equal(`Once you join the project you’ll be responsible for carrying over all orders from ${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_USER.NAME}. Are you sure you want to join?`);
       browser.getText(`${s}.modal-active .modal .modal-body .button-area > button:nth-child(1)`).should.be.equal('Cancel');
       browser.getText(`${s}.modal-active .modal .modal-body .button-area > button:nth-child(2)`).should.be.equal('Join');
     });

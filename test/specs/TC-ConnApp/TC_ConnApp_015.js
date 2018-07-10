@@ -125,8 +125,8 @@ describe('#TC_ConnApp_015 - Connect Application : E2E Create Wireframe Project',
     });
 
     it('Select 10 from Screen importance', () => {
-      const s4 = '#wrapper-main > div > div > div:nth-child(2) > section > div > div.left-area > div > div > div.projectSpecSidebar > div:nth-child(4) > div > h3:nth-child(3)';
-      const s5 = '#wrapper-main > div > div > div:nth-child(2) > section > div > div.left-area > div > div > div.projectSpecSidebar > div:nth-child(4) > div > h3:nth-child(5)';
+      const s4 = '#wrapper-main > div > div > div:nth-child(2) > section > div > div.left-area > div > div > div > div.projectSpecSidebar > div:nth-child(3) > div > h3:nth-child(3)';
+      const s5 = '#wrapper-main > div > div > div:nth-child(2) > section > div > div.left-area > div > div > div > div.projectSpecSidebar > div:nth-child(3) > div > h3:nth-child(5)';
       selectScreenImportance('#appScreens-screens > div > div > div:nth-child(1) > form > div > div:nth-child(3) > div.content-col > div > div > div', 10);
       browser.getText(s4).should.be.equal('7-10 days');
       browser.getText(s5).should.be.equal('$ 5,000');
