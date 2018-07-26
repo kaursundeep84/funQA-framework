@@ -26,7 +26,7 @@ const TEST_SUITE_CONFIG = {
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
-    TC_CONN_APP_VALID_LOGIN: {
+    TC_CONN_APP_VALID_LOGIN_AS_MANAGER: {
       USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
       NAME: process.env.TC_CONN_APP_NAME || 'Parth Manager',

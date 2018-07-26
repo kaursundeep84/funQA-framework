@@ -19,7 +19,7 @@ describe('#TC_ConnApp_040 - Connect Application : E2E Project Details Page', () 
       const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel';
       browser.click(`${s} > div:nth-child(4) button.btn-promote`);
       browser.getText(`${s} .modal .modal-title`).should.be.equal('You are about to assign a new project owner');
-      browser.getText(`${s} .modal .modal-body .message`).should.be.equal(`${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME} will become responsible for the project and be able to add and remove team members. Are you sure you want to proceed?`);
+      browser.getText(`${s} .modal .modal-body .message`).should.be.equal(`${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.NAME} will become responsible for the project and be able to add and remove team members. Are you sure you want to proceed?`);
     });
 
     it('Click "Cancel" button', () => {
@@ -36,14 +36,14 @@ describe('#TC_ConnApp_040 - Connect Application : E2E Project Details Page', () 
       browser.isVisible(`${s} .modal`).should.be.true;
       browser.click(`${s} .modal .modal-body .button-area > button:nth-child(2)`);
       browser.waitUntil(() => {
-        return browser.getText(`${s} > div:nth-child(3) .handle`) === TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER;
+        return browser.getText(`${s} > div:nth-child(3) .handle`) === TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER;
       });
 
       // New owner
       browser.waitForVisible(`${s} > div:nth-child(3) .stack-avatar-1 .sb-avatar > div`).should.be.true;
-      browser.getText(`${s} > div:nth-child(3) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.AVATAR);
-      browser.getText(`${s} > div:nth-child(3) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME);
-      browser.getText(`${s} > div:nth-child(3) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER);
+      browser.getText(`${s} > div:nth-child(3) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.AVATAR);
+      browser.getText(`${s} > div:nth-child(3) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.NAME);
+      browser.getText(`${s} > div:nth-child(3) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER);
 
       // Owner changed to member
       browser.waitForVisible(`${s} > div:nth-child(4) .stack-avatar-1 .sb-avatar > div`).should.be.true;

@@ -56,11 +56,11 @@ describe('#TC_ConnApp_034 - Connect Application : E2E Project Details Page', () 
       });
       browser.waitForVisible(`${s} > div:nth-child(4) .stack-avatar-1 .sb-avatar > div`).should.be.true;
       browser.waitUntil(() => {
-        return browser.getText(`${s} > div:nth-child(4) .sb-avatar > div`) === TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.AVATAR;
+        return browser.getText(`${s} > div:nth-child(4) .sb-avatar > div`) === TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.AVATAR;
       });
-      browser.getText(`${s} > div:nth-child(4) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.AVATAR);
-      browser.getText(`${s} > div:nth-child(4) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.NAME);
-      browser.getText(`${s} > div:nth-child(4) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER);
+      browser.getText(`${s} > div:nth-child(4) .sb-avatar > div`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.AVATAR);
+      browser.getText(`${s} > div:nth-child(4) .name`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.NAME);
+      browser.getText(`${s} > div:nth-child(4) .handle`).should.be.equal(TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER);
       browser.getText(`${s} > div:nth-child(4) .title`).should.be.equal('Manager');
       browser.waitForVisible(s1).should.be.true;
       browser.getText(`${s1} > ul > li:nth-child(1) > a`).should.be.equal('Project in Topcoder Direct');

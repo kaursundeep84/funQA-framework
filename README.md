@@ -38,7 +38,7 @@ Generated test reports are uploaded to S3 and served as static website. Therefor
 3. Configure AWS_S3_SERVICE section in `test/config/config.js` providing aws crednetials and bucket name. If bucket does not exists, it will be created.
 
 
-Some test cases require valid login credentials. Those are set per suite level. For instance `TC_CONN_APP_VALID_LOGIN`.
+Some test cases require valid login credentials. Those are set per suite level. For instance `TC_CONN_APP_VALID_LOGIN_AS_MANAGER`.
 
 ## Run Tests
 To run all tests:

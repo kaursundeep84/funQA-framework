@@ -4,6 +4,13 @@
  */
 
 /**
+ * Helper method to parse a string of comma seperated sub-strings as array
+ * @param {string} str - The input string
+ * @returns {Array}
+ */
+const parseArray = str => str.split(',');
+
+/**
  * TC E2E Test Suite configuration
  * Try load from environment variables
  * when not fallback to default values
@@ -11,7 +18,7 @@
  */
 const TEST_SUITE_CONFIG = {
   SUIT_NAME: process.env.SUIT_NAME || 'TC-ConnApp',
-  SEND_RESULTS_TO: ['kranitsasthomas@gmail.com'],
+  SEND_RESULTS_TO: process.env.SEND_RESULTS_TO ? parseArray(process.env.SEND_RESULTS_TO) : ['kranitsasthomas@gmail.com'],
   EMAIL_SERVICE: {
     SENDER: process.env.EMAIL_SERVICE_SENDER || '',
     USER: process.env.EMAIL_SERVICE_USER || '',
@@ -26,23 +33,23 @@ const TEST_SUITE_CONFIG = {
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
-    TC_CONN_APP_VALID_LOGIN: {
-      USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_manager',
-      PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_NAME || 'Parth Manager',
-      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PM',
+    TC_CONN_APP_VALID_LOGIN_AS_MANAGER: {
+      USER: process.env.TC_CONN_APP_MANAGER_USER || 'pshah_manager',
+      PASS: process.env.TC_CONN_APP_MANAGER_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_MANAGER_NAME || 'Parth Manager',
+      AVATAR: process.env.TC_CONN_APP_MANAGER_AVATAR || 'PM',
     },
     TC_CONN_APP_VALID_LOGIN_AS_USER: {
-      USER: process.env.TC_CONN_APP_VALID_LOGIN_USER || 'pshah_customer',
-      PASS: process.env.TC_CONN_APP_VALID_LOGIN_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_NAME || 'Parth Customer',
-      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PC',
+      USER: process.env.TC_CONN_APP_CUSTOMER_USER || 'pshah_customer',
+      PASS: process.env.TC_CONN_APP_CUSTOMER_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_CUSTOMER_NAME || 'Parth Customer',
+      AVATAR: process.env.TC_CONN_APP_CUSTOMER_AVATAR || 'PC',
     },
     TC_CONN_APP_VALID_LOGIN_AS_COPILOT: {
-      USER: process.env.TC_CONN_APP_VALID_COPLIOT_USER || 'pshah_copilot',
-      PASS: process.env.TC_CONN_APP_VALID_COPLIOT_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_NAME || 'Parth Copilot',
-      AVATAR: process.env.TC_CONN_APP_AVATAR || 'PC',
+      USER: process.env.TC_CONN_APP_COPLIOT_USER || 'pshah_copilot',
+      PASS: process.env.TC_CONN_APP_COPLIOT_PASS || 'topcoder123',
+      NAME: process.env.TC_CONN_APP_COPILOT_NAME || 'Parth Copilot',
+      AVATAR: process.env.TC_CONN_APP_COPILOT_AVATAR || 'PC',
     }
   }
 };

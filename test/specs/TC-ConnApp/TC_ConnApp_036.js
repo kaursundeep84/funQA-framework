@@ -42,14 +42,14 @@ describe('#TC_ConnApp_036 - Connect Application : E2E Project Details Page', () 
       browser.getText('#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel .modal.add-team-member .modal-title').should.be.equal('ADD A TEAM MEMBER');
     });
 
-    it(`Enter "${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER}" to the field`, () => {
+    it(`Enter "${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER}" to the field`, () => {
       const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel .modal.add-team-member .modal-body .modal-inline-form';
-      setValueAndCheck(`${s} input[type=text]`,  TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER);
+      setValueAndCheck(`${s} input[type=text]`,  TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER);
       browser.waitForVisible(`${s} .member-dropdown .handle`);
-      browser.getText(`${s} .member-dropdown .handle`).should.be.equal( TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER);
+      browser.getText(`${s} .member-dropdown .handle`).should.be.equal( TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER);
     });
 
-    it(`Select "${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN.USER}" from the drop down`, () => {
+    it(`Select "${TEST_SUITE_CONFIG.TC_CONN_APP.TC_CONN_APP_VALID_LOGIN_AS_MANAGER.USER}" from the drop down`, () => {
       const s = '#wrapper-main .dashboard-container .left-area .sideAreaWrapper .team-management .panel .modal.add-team-member .modal-body .modal-inline-form';
       browser.moveToObject(`${s} .member-dropdown .handle`);
       browser.click(`${s} .member-dropdown .handle`);

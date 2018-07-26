@@ -28,6 +28,7 @@ jobs:
           command: |
             ./envconfiguration.sh DEV
             npm test
+            npm run send-report
   "build-prod":
     docker:
       - image: circleci/node:8-browsers
@@ -69,5 +70,3 @@ workflows:
           filters:
             branches:
               only: master
-
-
