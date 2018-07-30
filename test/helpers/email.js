@@ -1,19 +1,14 @@
+/* global Promise */
 const config = require('../config/config');
 const path = require('path');
 const now = new Date();
 const directoyToUpload = path.resolve(__dirname, '../../allure-report');
-const zipName = `tc-e2e-${now.getTime()}.zip`;
 const fs = require('fs');
 const aws = require('aws-sdk');
-const nodemailer = require('nodemailer');
 const mime = require('mime-types');
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: config.EMAIL_SERVICE.USER,
-    pass: config.EMAIL_SERVICE.PASS,
-  }
-});
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 // Set aws configuration
 aws.config.update({
@@ -122,15 +117,10 @@ createAndConfigureBucket(s3)
         from: config.EMAIL_SERVICE.SENDER,
         to: config.SEND_RESULTS_TO,
         subject: 'TC E2E Test Results',
+        text: `TC E2E Test Results Available\nDownload link: ${reportUrl}`,
         html: `<h1>TC E2E Test Results Available</h1><p>Download link: ${reportUrl}</p>`
       };
-      transporter.sendMail(mailOptions, function(err, info) {
-        if (err) {
-          throw err;
-        } else {
-          console.log('Emails sent', info);
-        }
-      });
+      sgMail.send(mailOptions);
   }).catch((error) => {
     console.error(`Error: ${error}`);
     process.exit(1);
