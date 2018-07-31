@@ -19,11 +19,7 @@ const parseArray = str => str.split(',');
 const TEST_SUITE_CONFIG = {
   SUIT_NAME: process.env.SUIT_NAME || 'TC-ConnApp',
   SEND_RESULTS_TO: process.env.SEND_RESULTS_TO ? parseArray(process.env.SEND_RESULTS_TO) : ['kranitsasthomas@gmail.com'],
-  EMAIL_SERVICE: {
-    SENDER: process.env.EMAIL_SERVICE_SENDER || '',
-    USER: process.env.EMAIL_SERVICE_USER || '',
-    PASS: process.env.EMAIL_SERVICE_PASS || ''
-  },
+  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY || '',
   AWS_S3_SERVICE: {
     ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID || '',
     SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '',
