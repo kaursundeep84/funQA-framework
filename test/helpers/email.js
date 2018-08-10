@@ -1,23 +1,18 @@
+/* global Promise */
 const config = require('../config/config');
 const path = require('path');
 const now = new Date();
 const fs = require('fs');
 const aws = require('aws-sdk');
-const nodemailer = require('nodemailer');
 const mime = require('mime-types');
+const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 // if local = true then upload allure report
-const directoryToUpload = (process.argv[2] && process.argv[2] === 'local=true') ? 
-  path.resolve(__dirname, '../../allure-report') : 
+const directoryToUpload = (process.argv[2] && process.argv[2] === 'local=true') ?
+  path.resolve(__dirname, '../../allure-report') :
   path.resolve(__dirname, '../../mochawesome-report');
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: config.EMAIL_SERVICE.USER,
-    pass: config.EMAIL_SERVICE.PASS,
-  }
-});
 
 // Set aws configuration
 aws.config.update({
@@ -126,15 +121,10 @@ createAndConfigureBucket(s3)
         from: config.EMAIL_SERVICE.SENDER,
         to: config.SEND_RESULTS_TO,
         subject: 'TC E2E Test Results',
+        text: `TC E2E Test Results Available\nDownload link: ${reportUrl}`,
         html: `<h1>TC E2E Test Results Available</h1><p>Download link: ${reportUrl}</p>`
       };
-      transporter.sendMail(mailOptions, function(err, info) {
-        if (err) {
-          throw err;
-        } else {
-          console.log('Emails sent', info);
-        }
-      });
+      sgMail.send(mailOptions);
   }).catch((error) => {
     console.error(`Error: ${error}`);
     process.exit(1);
