@@ -10,6 +10,10 @@ if (process.platform == 'win32') {
 	command = command.replace(/\//g, '\\');
 }
 
-const spawnedProcess = childProcess.exec(command)
-spawnedProcess.stderr.pipe(process.stderr);
-spawnedProcess.stdout.pipe(process.stdout);
+const spawnedProcess = childProcess.spawn(command, {
+	stdio: 'inherit', // inherit parent's stdin, stdout, stderr streams
+	shell: true // allow shell syntax in command
+});
+
+// If spawn fails, output error
+spawnedProcess.on('error', (err) => console.error(err))
