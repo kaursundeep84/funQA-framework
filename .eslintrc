@@ -13,7 +13,8 @@
   "globals": {
     "TEST_SUITE_CONFIG": true,
     "chance": true,
-    "assert": true
+    "assert": true,
+    "Promise": true
   },
   "rules": {
     "no-console": 0
