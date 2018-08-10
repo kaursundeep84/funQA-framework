@@ -1,12 +1,16 @@
 const config = require('../config/config');
 const path = require('path');
 const now = new Date();
-const directoyToUpload = path.resolve(__dirname, '../../allure-report');
-const zipName = `tc-e2e-${now.getTime()}.zip`;
 const fs = require('fs');
 const aws = require('aws-sdk');
 const nodemailer = require('nodemailer');
 const mime = require('mime-types');
+
+// if local = true then upload allure report
+const directoryToUpload = (process.argv[2] && process.argv[2] === 'local=true') ? 
+  path.resolve(__dirname, '../../allure-report') : 
+  path.resolve(__dirname, '../../mochawesome-report');
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -115,7 +119,7 @@ createAndConfigureBucket(s3)
   .then((endpoint) => {
     const destinationKey = `${config.SUIT_NAME}/${now.getTime()}`;
     reportUrl = `http://${endpoint}/${destinationKey}/index.html`;
-    return uploadDirectory(s3, directoyToUpload, destinationKey);
+    return uploadDirectory(s3, directoryToUpload, destinationKey);
   }).then(() => {
       console.log(`Link ${reportUrl} created. Sending to ${config.SEND_RESULTS_TO.length} emails`);
       const mailOptions = {

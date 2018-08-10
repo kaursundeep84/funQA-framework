@@ -18,9 +18,10 @@ npm i
 - https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver#requirements
 
 ## Configuration
-It is handled in two places.
-1. `wdio.config.json` - this is the base webdriver.io config file. [See](http://webdriver.io/guide/getstarted/configuration.html) for details what is inside and how to use it.
-2. `test/config/config.js` - this is the test suites main configuration file. It is used by all test suites and cases. It is suggested to split by test suite name when more tests are added. This will ensure clear configurations. It supports also environment variables as those will be available in the CD/CI environment. If not fails back to some defaults. Edit them as needed.
+It is handled in three places.
+1. `wdio.conf.js` - this is the base webdriver.io config file. [See](http://webdriver.io/guide/getstarted/configuration.html) for details what is inside and how to use it.
+2. `wdio.local.conf.js` - this inherits from `wdio.conf.js` and overrides the `reporter` field to use `allure` reporter instead of `mochawesome` reporter. [See](http://webdriver.io/guide/testrunner/organizesuite.html) for details on organizing test suites.
+3. `test/config/config.js` - this is the test suites main configuration file. It is used by all test suites and cases. It is suggested to split by test suite name when more tests are added. This will ensure clear configurations. It supports also environment variables as those will be available in the CD/CI environment. If not fails back to some defaults. Edit them as needed.
 To send test results to list of es we need some email service. As this is left free to chose the easy way is to use nodemailer with Gmail. [See here](https://medium.com/@manojsinghnegi/sending-an-email-using-nodemailer-gmail-7cfa0712a799) for tutorial how it is done. Most important to send emails is to configure email credentials in `test/config/config.js`:
 ```
 SEND_RESULTS_TO: [],
@@ -51,14 +52,32 @@ npm run test:TC-ConnApp
 ```
 This will run the all tests in the `TC-ConnApp` folder.
 
+To run all tests using local configuration (uses Allure reporter):
+```
+npm test:local
+```
+To run specific test suite using local configuration (uses Allure reporter):
+```
+npm run test:TC-ConnApp:local
+```
+This will run the all tests in the `TC-ConnApp` folder.
+
 ## Send report via email
 
 To send the test report to the configured list (`SEND_RESULTS_TO`) of email addresses run `npm run send-report`
 
 ## Test results
-By default `spec` reporter is used. It log progress in console(std). ALso `allure` reporter is used to create HTML UI with results of the test run. It is placed in `allure-report` folder. It should  be hosted and opened in some browser. **Note** artifacts from previous test runs are deleted on the next run! Therefore if needed copy them before running new tests.
+By default `mochawesome` reporter is used. The reporter creates an HTML UI with results of the test run and is placed in `mochawesome-report` folder. It should  be hosted and opened in some browser. This is the preferred reporter for running tests on CircleCI.
 
-To serve the test results locally, run `npm run serve` and navigate to [http://localhost:8080](http://localhost:8080)
+Local configuration uses `spec` to log progress in console(std) and `allure` reporter to create HTML UI with results of the test run. Allure reports are created in `allure-report` folder. It should  be hosted and opened in some browser. 
+
+**Note** Artifacts from previous test runs are deleted on the next run! Therefore if needed copy them before running new tests.
+
+Allure reports are more verbose but have a large size, hence it is not the preferred reporter for prod environment.
+
+To serve the `mochawesome` test results locally, run `npm run serve` and navigate to [http://localhost:8080](http://localhost:8080)
+
+To serve the `allure` test results locally, run `npm run serve:local` or `npm run serve local=true` and navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Naming conventions and folder structure
 The used folder structure is:

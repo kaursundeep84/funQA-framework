@@ -1,11 +1,15 @@
+# Reports
 allure-report
 allure-data
 backup_allure
+mochawesome-report
+mochawesome-data
+errorShots
+
 # Logs
 logs
 *.log
 npm-debug.log*
-errorShots
 
 # Runtime data
 pids
@@ -39,7 +43,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-allure-report
-allure-data
-errorShots

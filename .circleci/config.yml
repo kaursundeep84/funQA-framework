@@ -54,9 +54,9 @@ jobs:
           name: Running test
           command: npm test
       - store_test_results:
-          path: ~/project/allure-report
+          path: ~/project/mochawesome-report
       - store_artifacts:
-          path: ~/project/allure-report
+          path: ~/project/mochawesome-report
 
 workflows:
   version: 2
