@@ -71,8 +71,19 @@ describe('#TC_ConnApp_027 - Connect Application : E2E Dashboard Functionalities'
       browser.getCssProperty(searchBtnContent, "display").value.should.be.equal('none');
       browser.getCssProperty(searchBtnWrapper, "background-color").value.should.be.equal('rgba(116,116,128,1)');
       browser.getAttribute(searchWrapper, "className").should.be.equal('SearchBar state-empty');
-      browser.pause(5000);
+      browser.pause(3500);
       browser.elements(projects).value.length.should.be.equal(fullProjectNum);
+    });
+
+    it('Enable the toggle "My Project" from the header', () => {
+      const s = 'div.main-wrapper .list-nav-container div.right-wrapper  > div > div > div';
+      browser.waitForVisible(s);
+      browser.click(s);
+      browser.getValue(`${s} > label > input[type="checkbox"]`).should.be.equal('on');
+    });
+
+    it('Check the Project listing', () => {
+      browser.elements('#wrapper-main .content-pane .container .gridview-content .flex-data > div:nth-child(2) > div .flex-row').value.length.should.be.above(0);
     });
   });
 

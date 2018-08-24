@@ -6,13 +6,10 @@ const fillData = require('./helpers/fillData.json');
 
 describe('#TC_ConnApp_034 - Connect Application : E2E Project Details Page', () => {
 
-  require('./TC_ConnApp_012.js');
-
   describe('Joining to the Project as a Manager', () => {
 
     before(function() {
       const path = browser.getUrl().replace('specification', '')
-      browser.logoutConnApp();
       browser.loginToConnApp('admin');
       browser.url(path);
       browser.waitUntil(() => {
