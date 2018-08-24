@@ -4,8 +4,6 @@
  */
 describe('#TC_ConnApp_035 - Connect Application : E2E Project Details Page', () => {
 
-  require('./TC_ConnApp_034.js');
-
   describe('Leave from Project', () => {
 
     it('Hover over the manager name from the "PROJECT TEAM (x)" section', () => {
