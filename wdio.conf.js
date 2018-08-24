@@ -73,7 +73,7 @@ exports.config = {
   // baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 45000,
+  waitforTimeout: 15000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
@@ -133,7 +133,7 @@ exports.config = {
       './test/specs/TC-ConnApp/helpers/createProject.js',
       './test/specs/TC-ConnApp/helpers/common.js'
     ],
-    timeout: 600000
+    timeout: 10000
   },
   //
   // =====
