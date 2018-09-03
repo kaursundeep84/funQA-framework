@@ -22,6 +22,28 @@ exports.config = {
       './test/specs/Projects/FieldValidation.js',
       './test/specs/Projects/PositiveE2E.js'
     ],
+    Landing: [
+      './test/specs/Landing/GuiNavigation.js',
+
+    ],
+    Login: [
+      './test/specs/Login/GuiNavigation.js',
+      './test/specs/Login/FieldValidation.js',
+      './test/specs/Login/PositiveE2E.js',
+      './test/specs/Login/NegativeE2E.js'
+    ],
+    Registration: [
+      './test/specs/Registration/GuiNavigation.js',
+      './test/specs/Registration/FieldValidation.js',
+      './test/specs/Registration/PositiveE2E.js',
+
+    ],
+    ForgotPassword: [
+      './test/specs/ForgotPassword/GuiNavigation.js',
+      './test/specs/ForgotPassword/FieldValidation.js',
+      './test/specs/ForgotPassword/PositiveE2E.js',
+      './test/specs/ForgotPassword/NegativeE2E.js'
+    ],
   },
   //
   // ============
