@@ -17,7 +17,11 @@ exports.config = {
   ],
 
   suites: {
-
+    Projects: [
+      './test/specs/Projects/GuiNavigation.js',
+      './test/specs/Projects/FieldValidation.js',
+      './test/specs/Projects/PositiveE2E.js'
+    ],
     Landing: [
       './test/specs/Landing/GuiNavigation.js',
 
@@ -99,7 +103,7 @@ exports.config = {
   // baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 15000,
+  waitforTimeout: 30000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
