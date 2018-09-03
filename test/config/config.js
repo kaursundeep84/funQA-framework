@@ -29,6 +29,8 @@ const TEST_SUITE_CONFIG = {
   // Suite specific configuration
   TC_CONN_APP: {
     URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
+    URL_FORGOT_PWD: process.env.TC_CONN_APP_URL_FORGOT_PWD || 'https://accounts.topcoder-dev.com/connect/forgot-password',
+    URL_REGISTER: process.env.TC_CONN_APP_URL_REGISTER || 'https://accounts.topcoder-dev.com/connect/registration',
     TC_CONN_APP_VALID_LOGIN_AS_MANAGER: {
       USER: process.env.TC_CONN_APP_MANAGER_USER || 'pshah_manager',
       PASS: process.env.TC_CONN_APP_MANAGER_PASS || 'topcoder123',
