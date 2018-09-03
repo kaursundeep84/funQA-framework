@@ -13,8 +13,16 @@ exports.config = {
   ],
   // Patterns to exclude.
   exclude: [
-    './test/specs/**/helpers/*.js'
+    './test/specs/helpers/*.js'
   ],
+
+  suites: {
+    Projects: [
+      './test/specs/Projects/GuiNavigation.js',
+      './test/specs/Projects/FieldValidation.js',
+      './test/specs/Projects/PositiveE2E.js'
+    ],
+  },
   //
   // ============
   // Capabilities
@@ -31,7 +39,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 10,
+  maxInstances: 1,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -73,7 +81,7 @@ exports.config = {
   // baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 15000,
+  waitforTimeout: 30000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
@@ -130,10 +138,10 @@ exports.config = {
     require: [
       './test/config/config.js',
       './test/helpers/common.js',
-      './test/specs/TC-ConnApp/helpers/createProject.js',
-      './test/specs/TC-ConnApp/helpers/common.js'
+      './test/specs/helpers/createProject.js',
+      './test/specs/helpers/common.js'
     ],
-    timeout: 10000
+    timeout: 50000
   },
   //
   // =====
@@ -144,9 +152,57 @@ exports.config = {
   // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
   // resolved to continue.
   //
+
+
+
   // Gets executed once before all workers get launched.
-  // onPrepare: function (config, capabilities) {
-  // },
+	//Clear the history of execution from json file everytime before whole testing begins
+	//This method just clear the old content fro testHistory.json file and
+	//put the content  empty  object   {} 
+	onPrepare: function (config, capabilities) {
+
+		let fs = require('fs');
+		var history = {};
+		let data = JSON.stringify(history);
+		fs.writeFileSync('./test/specs/helpers/testHistory.json', data);
+		
+	},
+
+  // After each test is run, the result is collected here 
+  // and stored in local json file, which is used in 'before' function to set 
+  // the global variable, which becomes precondition for next scenario to run
+  // The Scenario execution has to happen like below
+  // GuiNavigation  -> FieldValidation -> PositiveE2E -> NegativeE2E
+  afterTest: function (test) {
+
+    var jsonHistoryFile = './test/specs/helpers/testHistory.json';
+    var fileSplit = test.file.split("/");
+    var Suite = (fileSplit[fileSplit.length - 2]);
+    var Test = (fileSplit[fileSplit.length - 1]).split(".");
+    var spec = Suite + "_" + Test[0];
+    var result = test.passed;
+    let fs = require('fs');
+    let rawdata = fs.readFileSync(jsonHistoryFile);
+    let history = JSON.parse(rawdata);
+
+    if (typeof history[spec] === 'undefined') {
+
+      history[spec] = result;
+
+    } else {
+
+      //Value already present in the history json.. Skip if the test is already failed.
+      if (history[spec] !== false) {
+        history[spec] = result;
+      }
+
+    }
+    //Write the detail to file.
+    let data = JSON.stringify(history);
+    fs.writeFileSync(jsonHistoryFile, data);
+
+  },
+
   //
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
@@ -168,6 +224,25 @@ exports.config = {
     global.Assertion = chai.Assertion;
     global.assert = chai.assert;
     chai.Should();
+
+    //Set the global hasmap from teamHistory.json file before each test run.
+    //Here is the only place where global variables can be passed or set
+    //for the test functions.
+    global.testHistory = {};
+ 
+    try {
+      let fs = require('fs');
+      let rawdata = fs.readFileSync('./test/specs/helpers/testHistory.json');
+      let history = JSON.parse(rawdata);
+      for (var key in history) {
+        if (history.hasOwnProperty(key)) {
+          global.testHistory[key] = history[key];
+        }
+      }
+       
+    } catch (err) {
+      console.error("Error in reading testHistory.json file: " + err);
+    }
   },
   //
   // Hook that gets executed before the suite starts
