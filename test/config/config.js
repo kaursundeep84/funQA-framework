@@ -59,6 +59,8 @@ const TEST_SUITE_CONFIG = {
   }
 };
 
+console.log(TEST_SUITE_CONFIG);
+
 // Export it in test context
 if (module.parent.context) {
   const { context } = module.parent.context;
