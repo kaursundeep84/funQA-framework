@@ -26,7 +26,8 @@ jobs:
       - run:
           name: Running test
           command: |
-            ENV=DEV npm test
+            export ENV=DEV 
+            npm test
             npm run send-report
   "build-prod":
     docker:
