@@ -12,15 +12,6 @@ sgMail.setApiKey(config.SENDGRID_API_KEY);
 // if local = true then upload allure report
 const directoryToUpload = path.resolve(__dirname, '../../allure-report');
 
-// Set aws configuration
-aws.config.update({
-  region: config.AWS_S3_SERVICE.REGION,
-  credentials: {
-    accessKeyId: config.AWS_S3_SERVICE.ACCESS_KEY_ID,
-    secretAccessKey: config.AWS_S3_SERVICE.SECRET_KEY
-  }
-});
-
 /**
  * Creates and configures S3 bucket if required
  * @param {S3} s3 S3 client
@@ -107,7 +98,11 @@ function walkDir(directory) {
 }
 
 let reportUrl = '';
-const s3 = new aws.S3();
+const s3 = new aws.S3({
+  region: config.AWS_S3_SERVICE.REGION,
+  accessKeyId: config.AWS_S3_SERVICE.ACCESS_KEY_ID,
+  secretAccessKey: config.AWS_S3_SERVICE.SECRET_KEY
+});
 createAndConfigureBucket(s3)
   .then((endpoint) => {
     const destinationKey = `${config.SUIT_NAME}/${now.getTime()}`;
