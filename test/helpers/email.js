@@ -113,11 +113,11 @@ createAndConfigureBucket(s3)
   }).then(() => {
       console.log(`Link ${reportUrl} created. Sending to ${config.SEND_RESULTS_TO.length} emails`);
       const mailOptions = {
-        from: config.EMAIL_SERVICE.SENDER,
+        from: config.SEND_RESULTS_FROM,
         to: config.SEND_RESULTS_TO,
-        subject: 'TC E2E Test Results',
-        text: `TC E2E Test Results Available\nDownload link: ${reportUrl}`,
-        html: `<h1>TC E2E Test Results Available</h1><p>Download link: ${reportUrl}</p>`
+        subject: 'Connect E2E Test Results',
+        text: `Topcoder Connect E2E Test Results Available\nDownload link: ${reportUrl}`,
+        html: `<h1>Topcoder Connect E2E Test Results Available</h1><p>Download link: ${reportUrl}</p>`
       };
       sgMail.send(mailOptions);
   }).catch((error) => {

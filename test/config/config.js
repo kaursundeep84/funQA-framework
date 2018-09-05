@@ -25,6 +25,7 @@ const readFromEnv = str => process.env[`${process.env.ENV}_QA_FRAMEWORK_${str}`]
  */
 const TEST_SUITE_CONFIG = {
   SUIT_NAME: readFromEnv('SUIT_NAME') || 'TC-ConnApp',
+  SEND_RESULTS_FROM: readFromEnv('SEND_RESULTS_FROM') || '',
   SEND_RESULTS_TO: readFromEnv('SEND_RESULTS_TO') ? parseArray(readFromEnv('SEND_RESULTS_TO')) : ['kranitsasthomas@gmail.com'],
   SENDGRID_API_KEY: readFromEnv('SENDGRID_API_KEY') || '',
   AWS_S3_SERVICE: {
