@@ -40,7 +40,7 @@
   "scripts": {
     "postinstall": "npm install -g selenium-standalone",
     "kill-selenium": "kill -15 $( lsof -i:4444 -t )",
-    "test": "node cmd.js node_modules/.bin/wdio wdio.conf.js && npm run generate-mochawesome-report || npm run generate-mochawesome-report",
+    "test": "node cmd.js node_modules/.bin/wdio wdio.conf.js && npm run html-report && npm run send-report || npm run html-report && npm run send-report",
     "test:TC-ConnApp": "node cmd.js node_modules/.bin/wdio wdio.conf.js --spec TC_ConnApp && npm run html-report || npm run html-report && npm run send-report",
     "test:local": "npm run clean && node cmd.js node_modules/.bin/wdio wdio.local.conf.js --suite Projects,Landing,Login,Registration,ForgotPassword && npm run html-report || npm run html-report",
     "test:TC-ConnApp:local": "npm run clean && node cmd.js node_modules/.bin/wdio wdio.local.conf.js --spec TC_ConnApp && npm run html-report || npm run html-report && npm run send-report -- local=true",
