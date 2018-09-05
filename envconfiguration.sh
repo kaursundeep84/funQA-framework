@@ -40,6 +40,7 @@ ENV_VARS=(
 # For example:
 # DEV_QA_FRAMEWORK_AWS_S3_QA_REGION will be parsed as AWS_S3_QA_REGION
 for ENV_VAR in ${ENV_VARS[@]}; do
-  VAR_VALUE=$(eval "echo \$${ENV}_${PREFIX}_${ENV_VAR}")
-  eval "export ${ENV_VAR}=${VAR_VALUE}"
+  FULL_VAR="${ENV}_${PREFIX}_${ENV_VAR}"
+  VAR_VALUE=$(eval echo \$${FULL_VAR})
+  export ${ENV_VAR}=${VAR_VALUE}
 done
