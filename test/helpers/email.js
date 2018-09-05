@@ -10,9 +10,7 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(config.SENDGRID_API_KEY);
 
 // if local = true then upload allure report
-const directoryToUpload = (process.argv[2] && process.argv[2] === 'local=true') ?
-  path.resolve(__dirname, '../../allure-report') :
-  path.resolve(__dirname, '../../mochawesome-report');
+const directoryToUpload = path.resolve(__dirname, '../../allure-report');
 
 // Set aws configuration
 aws.config.update({
