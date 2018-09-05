@@ -146,11 +146,12 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: http://webdriver.io/guide/testrunner/reporters.html
-  reporters: ['mochawesome'],
-  reporterOptions: {
-    outputDir: './mochawesome-data',
-    mochawesome_filename: 'index.json'
-  },
+  reporters: ['spec', 'allure'],
+	reporterOptions: {
+    allure: {
+      outputDir: 'allure-data'
+    }
+	},
   //
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
@@ -180,18 +181,18 @@ exports.config = {
   // Gets executed once before all workers get launched.
 	//Clear the history of execution from json file everytime before whole testing begins
 	//This method just clear the old content fro testHistory.json file and
-	//put the content  empty  object   {} 
+	//put the content  empty  object   {}
 	onPrepare: function (config, capabilities) {
 
 		let fs = require('fs');
 		var history = {};
 		let data = JSON.stringify(history);
 		fs.writeFileSync('./test/specs/helpers/testHistory.json', data);
-		
+
 	},
 
-  // After each test is run, the result is collected here 
-  // and stored in local json file, which is used in 'before' function to set 
+  // After each test is run, the result is collected here
+  // and stored in local json file, which is used in 'before' function to set
   // the global variable, which becomes precondition for next scenario to run
   // The Scenario execution has to happen like below
   // GuiNavigation  -> FieldValidation -> PositiveE2E -> NegativeE2E
@@ -251,7 +252,7 @@ exports.config = {
     //Here is the only place where global variables can be passed or set
     //for the test functions.
     global.testHistory = {};
- 
+
     try {
       let fs = require('fs');
       let rawdata = fs.readFileSync('./test/specs/helpers/testHistory.json');
@@ -261,7 +262,7 @@ exports.config = {
           global.testHistory[key] = history[key];
         }
       }
-       
+
     } catch (err) {
       console.error("Error in reading testHistory.json file: " + err);
     }

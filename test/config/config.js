@@ -11,43 +11,50 @@
 const parseArray = str => str.split(',');
 
 /**
+ * Format environment var and return its value
+ * @param {string} str - The original variable name
+ * @returns {string} env var value
+ */
+const readFromEnv = str => process.env[`${process.env.ENV}_QA_FRAMEWORK_${str}`];
+
+/**
  * TC E2E Test Suite configuration
  * Try load from environment variables
  * when not fallback to default values
  * @type {Object}
  */
 const TEST_SUITE_CONFIG = {
-  SUIT_NAME: process.env.SUIT_NAME || 'TC-ConnApp',
-  SEND_RESULTS_TO: process.env.SEND_RESULTS_TO ? parseArray(process.env.SEND_RESULTS_TO) : ['kranitsasthomas@gmail.com'],
-  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY || '',
+  SUIT_NAME: readFromEnv('SUIT_NAME') || 'TC-ConnApp',
+  SEND_RESULTS_TO: readFromEnv('SEND_RESULTS_TO') ? parseArray(readFromEnv('SEND_RESULTS_TO')) : ['kranitsasthomas@gmail.com'],
+  SENDGRID_API_KEY: readFromEnv('SENDGRID_API_KEY') || '',
   AWS_S3_SERVICE: {
-    ACCESS_KEY_ID: process.env.AWS_S3_ACCESS_KEY_ID || '',
-    SECRET_KEY: process.env.AWS_S3_SECRET_KEY || '',
-    REGION: process.env.AWS_S3_REGION || 'us-west-1',
-    BUCKET: process.env.AWS_S3_BUCKET || '',
+    ACCESS_KEY_ID: readFromEnv('AWS_S3_ACCESS_KEY_ID') || '',
+    SECRET_KEY: readFromEnv('AWS_S3_SECRET_KEY') || '',
+    REGION: readFromEnv('AWS_S3_REGION') || 'us-west-1',
+    BUCKET: readFromEnv('AWS_S3_BUCKET') || '',
   },
   // Suite specific configuration
   TC_CONN_APP: {
-    URL: process.env.TC_CONN_APP_URL || 'https://connect.topcoder-dev.com',
-    URL_FORGOT_PWD: process.env.TC_CONN_APP_URL_FORGOT_PWD || 'https://accounts.topcoder-dev.com/connect/forgot-password',
-    URL_REGISTER: process.env.TC_CONN_APP_URL_REGISTER || 'https://accounts.topcoder-dev.com/connect/registration',
+    URL: readFromEnv('TC_CONN_APP_URL') || 'https://connect.topcoder-dev.com',
+    URL_FORGOT_PWD: readFromEnv('TC_CONN_APP_URL_FORGOT_PWD') || 'https://accounts.topcoder-dev.com/connect/forgot-password',
+    URL_REGISTER: readFromEnv('TC_CONN_APP_URL_REGISTER') || 'https://accounts.topcoder-dev.com/connect/registration',
     TC_CONN_APP_VALID_LOGIN_AS_MANAGER: {
-      USER: process.env.TC_CONN_APP_MANAGER_USER || 'pshah_manager',
-      PASS: process.env.TC_CONN_APP_MANAGER_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_MANAGER_NAME || 'Parth Manager',
-      AVATAR: process.env.TC_CONN_APP_MANAGER_AVATAR || 'PM',
+      USER: readFromEnv('TC_CONN_APP_MANAGER_USER') || 'pshah_manager',
+      PASS: readFromEnv('TC_CONN_APP_MANAGER_PASS') || 'topcoder123',
+      NAME: readFromEnv('TC_CONN_APP_MANAGER_NAME') || 'Parth Manager',
+      AVATAR: readFromEnv('TC_CONN_APP_MANAGER_AVATAR') || 'PM',
     },
     TC_CONN_APP_VALID_LOGIN_AS_USER: {
-      USER: process.env.TC_CONN_APP_CUSTOMER_USER || 'pshah_customer',
-      PASS: process.env.TC_CONN_APP_CUSTOMER_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_CUSTOMER_NAME || 'Parth Customer',
-      AVATAR: process.env.TC_CONN_APP_CUSTOMER_AVATAR || 'PC',
+      USER: readFromEnv('TC_CONN_APP_CUSTOMER_USER') || 'pshah_customer',
+      PASS: readFromEnv('TC_CONN_APP_CUSTOMER_PASS') || 'topcoder123',
+      NAME: readFromEnv('TC_CONN_APP_CUSTOMER_NAME') || 'Parth Customer',
+      AVATAR: readFromEnv('TC_CONN_APP_CUSTOMER_AVATAR') || 'PC',
     },
     TC_CONN_APP_VALID_LOGIN_AS_COPILOT: {
-      USER: process.env.TC_CONN_APP_COPLIOT_USER || 'pshah_copilot',
-      PASS: process.env.TC_CONN_APP_COPLIOT_PASS || 'topcoder123',
-      NAME: process.env.TC_CONN_APP_COPILOT_NAME || 'Parth Copilot',
-      AVATAR: process.env.TC_CONN_APP_COPILOT_AVATAR || 'PC',
+      USER: readFromEnv('TC_CONN_APP_COPLIOT_USER') || 'pshah_copilot',
+      PASS: readFromEnv('TC_CONN_APP_COPLIOT_PASS') || 'topcoder123',
+      NAME: readFromEnv('TC_CONN_APP_COPILOT_NAME') || 'Parth Copilot',
+      AVATAR: readFromEnv('TC_CONN_APP_COPILOT_AVATAR') || 'PC',
     }
   }
 };
