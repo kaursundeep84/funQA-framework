@@ -20,24 +20,12 @@ npm i
 ## Configuration
 It is handled in three places.
 1. `wdio.conf.js` - this is the base webdriver.io config file. [See](http://webdriver.io/guide/getstarted/configuration.html) for details what is inside and how to use it.
-2. `wdio.local.conf.js` - this inherits from `wdio.conf.js` and overrides the `reporter` field to use `allure` reporter instead of `mochawesome` reporter. [See](http://webdriver.io/guide/testrunner/organizesuite.html) for details on organizing test suites.
-3. `test/config/config.js` - this is the test suites main configuration file. It is used by all test suites and cases. It is suggested to split by test suite name when more tests are added. This will ensure clear configurations. It supports also environment variables as those will be available in the CD/CI environment. If not fails back to some defaults. Edit them as needed.
-To send test results to list of es we need some email service. As this is left free to chose the easy way is to use nodemailer with Gmail. [See here](https://medium.com/@manojsinghnegi/sending-an-email-using-nodemailer-gmail-7cfa0712a799) for tutorial how it is done. Most important to send emails is to configure email credentials in `test/config/config.js`:
-```
-SEND_RESULTS_TO: [],
-EMAIL_SERVICE: {
-  SENDER: process.env.EMAIL_SERVICE_SENDER || '',
-  USER: process.env.EMAIL_SERVICE_USER || '',
-  PASS: process.env.EMAIL_SERVICE_PASS || ''
-},
-```
-and `SEND_RESULTS_TO` list with recipients.
+2. `test/config/config.js` - this is the test suites main configuration file. It is used by all test suites and cases. It is suggested to split by test suite name when more tests are added. This will ensure clear configurations. It supports also environment variables as those will be available in the CD/CI environment. If not fails back to some defaults. Edit them as needed.
 
 Generated test reports are uploaded to S3 and served as static website. Therefore account and properly configured application is needed.
 1. Create AWS account: https://aws.amazon.com/
 2. Added IAM User with `Programmatic access`: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console
 3. Configure AWS_S3_SERVICE section in `test/config/config.js` providing aws crednetials and bucket name. If bucket does not exists, it will be created.
-
 
 Some test cases require valid login credentials. Those are set per suite level. For instance `TC_CONN_APP_VALID_LOGIN_AS_MANAGER`.
 
@@ -46,59 +34,30 @@ To run all tests:
 ```
 npm test
 ```
-To run specific test suite use:
-```
-npm run test:TC-ConnApp
-```
-This will run the all tests in the `TC-ConnApp` folder.
-
-To run all tests using local configuration (uses Allure reporter):
-```
-npm test:local
-```
-To run specific test suite using local configuration (uses Allure reporter):
-```
-npm run test:TC-ConnApp:local
-```
-This will run the all tests in the `TC-ConnApp` folder.
 
 ## Send report via email
 
 To send the test report to the configured list (`SEND_RESULTS_TO`) of email addresses run `npm run send-report`
 
 ## Test results
-By default `mochawesome` reporter is used. The reporter creates an HTML UI with results of the test run and is placed in `mochawesome-report` folder. It should  be hosted and opened in some browser. This is the preferred reporter for running tests on CircleCI.
-
-Local configuration uses `spec` to log progress in console(std) and `allure` reporter to create HTML UI with results of the test run. Allure reports are created in `allure-report` folder. It should  be hosted and opened in some browser. 
+The framework uses `spec` to log progress in console(std) and `allure` reporter to create HTML UI with results of the test run. Allure reports are created in `allure-report` folder. It should  be hosted and opened in some browser.
 
 **Note** Artifacts from previous test runs are deleted on the next run! Therefore if needed copy them before running new tests.
 
-Allure reports are more verbose but have a large size, hence it is not the preferred reporter for prod environment.
-
-To serve the `mochawesome` test results locally, run `npm run serve` and navigate to [http://localhost:8080](http://localhost:8080)
-
-To serve the `allure` test results locally, run `npm run serve:local` or `npm run serve local=true` and navigate to [http://localhost:8080](http://localhost:8080)
+To serve the `allure-report` test results locally, run `npm run serve` and navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Naming conventions and folder structure
 The used folder structure is:
 ```
 test
-|- specsphantomjs
-|-- TC-XXX-NAME
-|--- TC_XXX_NAME_CASE_ID.js
+|- specs
+|-- SuiteName
+|--- TestingType.js
 ```
 following this pattern will ensure maintainability when test code-base grow.
 
 ## Lint
 Code lint via eslint and `npm run lint`.
-
-## Adding new tests suites
-To add new test suite:
-1. Create folder `<XXX_SUITE>` inside the `test/spec` folder.
-2. Create its configuration (if needed) inside `test/config/config.js`.
-3. Update `package.json` with new script to execute the suite. See `test:TC-ConnApp` for example. Important is `--spec` to match folder/files names of the new suite.
-4. Write tests in `<XXX_SUITE>` following naming convention.
-5. Done. Tests will be picked and executed automatically by the test runner.
 
 ## Troubleshooting
 - If you get `cant connect to selenium` error try running `npm run kill-selenium`
@@ -160,4 +119,4 @@ Currently tests in `qa-framework-js` runs against the hosted website `https://co
 
 2. Once the deployment is complete for `connect-app`, Trigger an API request to start building of repository `qa-framework-js` in Circle CI. Please refer https://circleci.com/docs/2.0/api-job-trigger/
 
-3. Trigger the Circle CI build manually in `qa-framework-js` repository once the build is complete in Topcoder Connect App. 
+3. Trigger the Circle CI build manually in `qa-framework-js` repository once the build is complete in Topcoder Connect App.

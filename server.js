@@ -3,11 +3,7 @@ const app = express();
 const path = require('path');
 const opn = require('opn');
 
-// if local = true then serve allure report
-const directoryToServe = (process.argv[2] && process.argv[2] === 'local=true') ? 
-  path.join(__dirname, '/allure-report') : 
-  path.join(__dirname, '/mochawesome-report');
-  console.log(directoryToServe)
+const directoryToServe = path.join(__dirname, '/allure-report');
 
 // Run the app by serving the static files
 // in the dist directory

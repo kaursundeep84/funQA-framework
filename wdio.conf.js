@@ -1,3 +1,11 @@
+const Chance = require('chance');
+const chai = require('chai');
+const chalk = require('chalk');
+const fs = require('fs');
+
+// Keep a global reference of the object.
+const testHistory = {};
+
 exports.config = {
   //
   // ==================
@@ -24,7 +32,6 @@ exports.config = {
     ],
     Landing: [
       './test/specs/Landing/GuiNavigation.js',
-
     ],
     Login: [
       './test/specs/Login/GuiNavigation.js',
@@ -90,7 +97,7 @@ exports.config = {
   sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
-  logLevel: 'verbose',
+  logLevel: 'error',
   //
   // Enables colors for log output.
   coloredLogs: true,
@@ -175,72 +182,36 @@ exports.config = {
   // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
   // resolved to continue.
   //
-
-
-
   // Gets executed once before all workers get launched.
-	//Clear the history of execution from json file everytime before whole testing begins
-	//This method just clear the old content fro testHistory.json file and
-	//put the content  empty  object   {}
-	onPrepare: function (config, capabilities) {
+	// onPrepare: () => {
+	// },
 
-		let fs = require('fs');
-		var history = {};
-		let data = JSON.stringify(history);
-		fs.writeFileSync('./test/specs/helpers/testHistory.json', data);
-
-	},
-
-  // After each test is run, the result is collected here
-  // and stored in local json file, which is used in 'before' function to set
-  // the global variable, which becomes precondition for next scenario to run
-  // The Scenario execution has to happen like below
-  // GuiNavigation  -> FieldValidation -> PositiveE2E -> NegativeE2E
-  afterTest: function (test) {
-
-    var jsonHistoryFile = './test/specs/helpers/testHistory.json';
-    var fileSplit = test.file.split("/");
-    var Suite = (fileSplit[fileSplit.length - 2]);
-    var Test = (fileSplit[fileSplit.length - 1]).split(".");
-    var spec = Suite + "_" + Test[0];
-    var result = test.passed;
-    let fs = require('fs');
-    let rawdata = fs.readFileSync(jsonHistoryFile);
-    let history = JSON.parse(rawdata);
-
-    if (typeof history[spec] === 'undefined') {
-
-      history[spec] = result;
-
+  /**
+   * Save test case result in the history object
+   */
+  afterTest: (test) => {
+    const regex = /\[(.*?)\]/g;
+    const matches = regex.exec(test.title);
+    const TC_ID = matches ? matches[1] : test.title;
+    testHistory[TC_ID] = test.passed;
+    if (test.passed) {
+      console.log(chalk.green(`✓ ${TC_ID}`));
     } else {
-
-      //Value already present in the history json.. Skip if the test is already failed.
-      if (history[spec] !== false) {
-        history[spec] = result;
-      }
-
+      console.log(chalk.red(`[Failed] - ${TC_ID}`));
     }
-    //Write the detail to file.
-    let data = JSON.stringify(history);
-    fs.writeFileSync(jsonHistoryFile, data);
-
   },
 
   //
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
-  before: function() {
+  before: () => {
     require('sinon');
     // http://sinonjs.org/
-    var chai = require('chai');
     chai.use(require('chai-url'));
     chai.use(require('chai-datetime'));
     chai.use(require('chai-match'));
-    // http://chaijs.com/
     global.fetch = require('node-fetch');
-    var Chance = require('chance');
     global.chance = new Chance();
-
     chai.config.includeStack = true;
     global.expect = chai.expect;
     global.AssertionError = chai.AssertionError;
@@ -248,23 +219,25 @@ exports.config = {
     global.assert = chai.assert;
     chai.Should();
 
-    //Set the global hasmap from teamHistory.json file before each test run.
-    //Here is the only place where global variables can be passed or set
-    //for the test functions.
-    global.testHistory = {};
+    // ---------------
+    // Custom methods
+    // ---------------
 
-    try {
-      let fs = require('fs');
-      let rawdata = fs.readFileSync('./test/specs/helpers/testHistory.json');
-      let history = JSON.parse(rawdata);
-      for (var key in history) {
-        if (history.hasOwnProperty(key)) {
-          global.testHistory[key] = history[key];
+    /**
+     * Custom method to check if dependencies are met before running a test
+     * @{param} {array} dependencies - An array of test case IDs
+     */
+    global.checkDependencies = (dependencies) => {
+      let result = true;
+      const failedDependencies = [];
+      for (let i = 0; i < dependencies.length; i++) {
+        if (!testHistory[dependencies[i]]) {
+          failedDependencies.push(dependencies[i]);
+          result = false;
         }
       }
-
-    } catch (err) {
-      console.error("Error in reading testHistory.json file: " + err);
+      const msg = result ? 'Passed' : `Failed dependencies: [${failedDependencies.join(', ')}]`;
+      chai.expect(msg).to.be.equal('Passed');
     }
   },
   //
@@ -304,13 +277,32 @@ exports.config = {
   //
   // Gets executed after all tests are done. You still have access to all global variables from
   // the test.
-  // after: function (result, capabilities, specs) {
-  // },
+  after: function (result, capabilities, specs) { // eslint-disable-line
+    const passed = [];
+    const failed = [];
+    for (let tc in testHistory) {
+      if (testHistory[tc]) {
+        passed.push(tc);
+      } else {
+        failed.push(tc);
+      }
+    }
+
+    const results = {
+      passedTestCases: passed.length,
+      failedTestCases: failed.length,
+      testCases: {
+        passed,
+        failed,
+      },
+    };
+    fs.writeFileSync('./automationStatus.json', JSON.stringify(results, null, 2));
+  },
   //
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
-  // onComplete: function(exitCode) {
-  // }
+  // onComplete: function (exitCode) {
+  // },
   seleniumInstallArgs: { version: '3.4.0' },
   seleniumArgs: { version: '3.4.0' },
 }

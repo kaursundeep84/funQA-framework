@@ -10,6 +10,7 @@ errorShots
 logs
 *.log
 npm-debug.log*
+automationStatus.json
 
 # Runtime data
 pids
